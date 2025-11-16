@@ -1,0 +1,3 @@
+ServerCache = {
+    logs = {},
+}
