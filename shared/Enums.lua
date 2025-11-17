@@ -1,4 +1,8 @@
-Enums = {
+local Enums = {
+    sqlTables = {
+        ["players"] = "player",
+        ["bans"] = "ban",
+    },
     roles = {
         ["user"] = {
             label = "Utilisateur",
@@ -20,22 +24,27 @@ Enums = {
         },
     },
     logsTypes = {
-        ["default"] = {
+        info = {
             title = "Information",
             titleColor = "^7",
             textColor = "^7",
         },
-        ["error"] = {
+        error = {
             title = "Error",
             titleColor = "^3",
             textColor = "^7",
         },
-        ["error-major"] = {
+        critical = {
             title = "Major error",
             titleColor = "^1",
             textColor = "^7",
         },
-    }
+        success = {
+            title = "Success",
+            titleColor = "^2",
+            textColor = "^7",
+        }
+    },
 }
 
 return Enums

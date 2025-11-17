@@ -1,4 +1,4 @@
-require "shared.Enums"
+local Enums =require "shared.Enums"
 
 -- Class
 local Player = lib.class("Player")
@@ -56,12 +56,12 @@ end
 -- newName : string
 function Player:setName(newName) -- bool
     if newName == nil or type(newName) ~= "string" or string.len(newName) == 0 or string.len(newName) > 50 then
-        CNF.debug("error", "Player:setName invalid name input.")
+        CNF.Log("error", "Player:setName invalid name input.")
         return false
     end
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..ConfigServer.sql.tables["players"].." SET name = @name WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..Enums.sqlTables["players"].." SET name = @name WHERE id = @id"), {
         ["name"] = newName,
         ["id"] = self:getId(),
     })
@@ -71,7 +71,7 @@ function Player:setName(newName) -- bool
         self.private.name = newName
         return true
     else
-        CNF.debug("error", "Player:setName SQL query failed.")
+        CNF.Log("error", "Player:setName SQL query failed.")
         return false
     end
 end
@@ -83,13 +83,13 @@ end
 -- newRole : string
 function Player:addRole(newRole) -- bool
     if newRole == nil or type(newRole) ~= "string" or string.len(newRole) == 0 or Enums.roles[newRole] == nil then
-        CNF.debug("error", "Player:addRole invalid role input.")
+        CNF.Log("error", "Player:addRole invalid role input.")
         return false
     end
 
     -- Does role exist ?
     if self.private.roles[newRole] ~= nil then
-        CNF.debug("error", "Player:addRole role doesn't exist in Enums roles.")
+        CNF.Log("error", "Player:addRole role doesn't exist in Enums roles.")
         return false
     end
 
@@ -97,7 +97,7 @@ function Player:addRole(newRole) -- bool
     table.insert(rolesCopy, newRole)
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..ConfigServer.sql.tables["players"].." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..Enums.sqlTables["players"].." SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })
@@ -107,7 +107,7 @@ function Player:addRole(newRole) -- bool
         table.insert(self.private.roles, newRole)
         return true
     else
-        CNF.debug("error", "Player:addRole SQL query failed.")
+        CNF.Log("error", "Player:addRole SQL query failed.")
         return false
     end
 end
