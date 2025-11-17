@@ -5,7 +5,7 @@ lib.addCommand("showlogs", {
     params = {},
 }, function(source, args, raw)
     if source ~= 0 then
-        CNF.debug("error", "Can't show logs to a player.")
+        CNF.Log("error", "Can't show logs to a player.")
     end
 
     local logs = lib.table.deepclone(ServerCache.logs)

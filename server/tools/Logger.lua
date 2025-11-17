@@ -1,12 +1,12 @@
 local Enums = require "shared.Enums"
 
-Debug = function(debugType, message)
-    if ConfigServer.logs.debug == false or debugType == nil or Enums.logsTypes[debugType] == nil or message == nil or string.len(message) == 0 then
+local Log = function(logType, message)
+    if ConfigServer.logs.console == false or logType == nil or Enums.logsTypes[logType] == nil or message == nil or string.len(message) == 0 then
         return false
     end
 
     local newLog = {
-        type = debugType,
+        type = logType,
         message = message,
         timestamp = os.time,
         readableTime = tostring(os.date("%d/%m/%Y %Hh%M")..":"..os.date("%S")..":"..(GetGameTimer() % 1000)),
@@ -14,9 +14,9 @@ Debug = function(debugType, message)
 
     local logTime = string.format("%sh%s:%s:%03d", os.date("%H"), os.date("%M"), os.date("%S"), GetGameTimer() % 1000)
 
-    print(Enums.logsTypes[debugType].titleColor.."["..Enums.logsTypes[debugType].title.."] "..logTime.." : "..Enums.logsTypes[debugType].textColor..message)
+    print(Enums.logsTypes[logType].titleColor.."["..Enums.logsTypes[logType].title.."] "..logTime.." : "..Enums.logsTypes[logType].textColor..message)
 
     table.insert(ServerCache.logs, newLog)
 end
 
-return Debug
+return Log

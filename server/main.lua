@@ -1,7 +1,10 @@
 CNF = {
-    debug = require "server.tools.logs.Logger_debug",
-    dumpTable = require "server.tools.DumpTable",
-    classes = {
+    Enums = require "shared.Enums",
+    -- Registered classes
+    Classes = {
         ["Player"] = require "server.classes.Player.Player",
     },
+    -- Tools
+    Log = require "server.tools.Logger",
+    DumpTable = require "server.tools.DumpTable",
 }
