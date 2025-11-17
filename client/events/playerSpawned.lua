@@ -1,3 +1,6 @@
-AddEventHandler('playerSpawned', function()
-    print("Player spawned !")
+AddEventHandler("playerSpawned", function()
+    print("CNFramework : player has loaded.")
+    
+    SetCanAttackFriendly(PlayerPedId(), true, false)
+    NetworkSetFriendlyFireOption(true)
 end)

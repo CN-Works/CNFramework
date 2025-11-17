@@ -1,3 +1,6 @@
+SetMapName(Config.mapName)
+SetGameType(Config.serverName .. " gamemode.")
+
 CNF = {
     Enums = require "shared.Enums",
     -- Registered classes
