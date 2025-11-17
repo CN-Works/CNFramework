@@ -4,7 +4,7 @@
 A lightweight object-oriented framework written in lua for advanced fivem purposes.
 </p>
 
-<div align='left'><h1>Dependencies</h1></div>
+<div align='left'><h1>Requirements</h1></div>
 
 <ul>
   <li><a href="https://github.com/CommunityOx/oxmysql">Oxmysql</a> - Used to make SQL queries.</li>
