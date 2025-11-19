@@ -1,4 +1,4 @@
-local Enums =require "shared.Enums"
+local Enums = require "shared.Enums"
 
 -- Class
 local Player = lib.class("Player")
