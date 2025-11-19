@@ -146,16 +146,16 @@ function Player:removeRole(roleName) -- bool
         CNF.Log("error", "Player:removeRole player doesn't have the role.")
         return false
     end
-
-    -- Remove role
-    for key, role in pairs(self.private.roles) do
-        if role == roleName then
-            table.remove(self.private.roles, key)
-        end
-    end
-
+    
     local rolesCopy = lib.table.deepclone(self.private.roles)
 
+    -- Remove role
+    for key, role in pairs(rolesCopy) do
+        if role == roleName then
+            table.remove(rolesCopy, key)
+        end
+    end
+    
     -- Query
     local affectedRows = MySQL.update.await(tostring("UPDATE "..Enums.sqlTables["players"].." SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
@@ -164,9 +164,33 @@ function Player:removeRole(roleName) -- bool
     
     -- Update object
     if affectedRows > 0 then
+        self.private.roles = rolesCopy
         return true
     else
         CNF.Log("error", "Player:removeRole SQL query failed.")
+        return false
+    end
+end
+
+function Player:getLastConnection() -- int
+    return self.private.lastConnection
+end
+
+function Player:updateLastConnection() -- bool
+    local timestamp = os.time()
+
+    -- Query
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..Enums.sqlTables["players"].." SET last_connection = @lastConnection WHERE id = @id"), {
+        ["lastConnection"] = timestamp,
+        ["id"] = self:getId(),
+    })
+
+    -- Update object
+    if affectedRows > 0 then
+        self.private.lastConnection = timestamp
+        return true
+    else
+        CNF.Log("error", "Player:updateLastConnection SQL query failed.")
         return false
     end
 end
