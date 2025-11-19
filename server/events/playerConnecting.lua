@@ -1,3 +1,6 @@
+local PlayerManager = require "server.classes.Player.PlayerManager"
+local PlayerCached = require "server.classes.Player.PlayerCached"
+
 AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     local src = source
 
@@ -12,11 +15,22 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
         return
     end
 
-    -- Authentification
-    -- Todo
+    discordId = string.gsub(discordId, "discord:", "")
 
-    -- New Player
-    -- Todo
+    -- Authentification
+    local player = PlayerManager.getPlayerByDiscordId(discordId)
+
+    if player then
+        PlayerCached[src] = player
+
+        -- Update last connection
+        player:updateLastConnection()
+    else
+        print("new player connecting with discord id : " .. discordId)
+
+        -- New Player
+        -- Todo
+    end
 
     -- Authorize connection
     deferrals.done()

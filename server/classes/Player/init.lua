@@ -1,19 +1,16 @@
 local Enums = require "shared.Enums"
+local PlayerRepository = require "server.classes.Player.PlayerRepository"
 
 Citizen.CreateThread(function()
     while MySQL.isReady() == false do
         Wait(0)
     end
-
-    print(tostring("SELECT * FROM ".. Enums.sqlTables["players"] .." "))
-
-    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. Enums.sqlTables["players"] ..""), {})
-
-    if reponse then
+    
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. Enums.sqlTables["players"]))
+    
+    if response then
         for key, playerData in pairs(response) do
-            Citizen.CreateThread(function()
-                print("loaded player :"..playerData.id)
-            end)
+            PlayerRepository[playerData.id] = CNF.classes["Player"]:new(playerData.id, playerData.discord_id, playerData.name, playerData.data, playerData.roles, playerData.last_connection)
         end
     else
         CNF.Log("critical", "Player Init : MySQL query failed.")

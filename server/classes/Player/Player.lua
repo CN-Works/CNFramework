@@ -7,13 +7,20 @@ local Player = lib.class("Player")
 -- name : string
 -- roles : table
 -- lastConnection : int
-function Player:constructor(id, name, data, roles, lastConnection)
+function Player:constructor(id, discordId, name, data, roles, lastConnection)
     -- Id
     if id == nil or type(id) ~= "number" or id < 1 then
         return false
     end
     
     self.private.id = id
+
+    -- Discord Id
+    if discordId == nil or type(discordId) ~= "string" or string.len(discordId) == 0 or string.len(discordId) > 19 then
+        return false
+    end
+
+    self.private.discordId = discordId
 
     -- Name
     if name == nil or type(name) ~= "string" or string.len(name) == 0 or string.len(name) > 50 then
@@ -54,6 +61,10 @@ end
 
 function Player:getId() -- Int
     return self.private.id
+end
+
+function Player:getDiscordId() -- string
+    return self.private.discordId
 end
 
 function Player:getName() -- string

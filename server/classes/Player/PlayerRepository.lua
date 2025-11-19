@@ -1,2 +1,4 @@
 -- Saves all player's objects
-PlayerRepository = {}
+local PlayerRepository = {}
+
+return PlayerRepository
