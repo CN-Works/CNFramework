@@ -37,11 +37,14 @@ CREATE TABLE IF NOT EXISTS `ban` (
 -- Listage de la structure de table cleanfx. player
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `discord_id` varchar(18) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `data` text NOT NULL DEFAULT '[]',
   `roles` text NOT NULL DEFAULT '["user"]',
   `last_connection` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `discord_id` (`discord_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Les données exportées n'étaient pas sélectionnées.

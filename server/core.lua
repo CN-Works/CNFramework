@@ -1,7 +1,7 @@
 CNF = {
     Enums = require "shared.Enums",
     -- Registered classes
-    Classes = {
+    classes = {
         ["Player"] = require "server.classes.Player.Player",
     },
     -- Tools

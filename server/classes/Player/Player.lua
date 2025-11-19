@@ -7,7 +7,7 @@ local Player = lib.class("Player")
 -- name : string
 -- roles : table
 -- lastConnection : int
-function Player:constructor(id, name, roles, lastConnection)
+function Player:constructor(id, name, data, roles, lastConnection)
     -- Id
     if id == nil or type(id) ~= "number" or id < 1 then
         return false
@@ -21,6 +21,13 @@ function Player:constructor(id, name, roles, lastConnection)
     end
 
     self.private.name = name
+
+    -- Data
+    if data == nil or type(data) ~= "table" then
+        return false
+    end
+
+    self.private.data = data
 
     -- Roles
     if roles == nil or type(roles) ~= "table" then
@@ -80,16 +87,32 @@ function Player:getRoles() -- table
     return self.private.roles
 end
 
+-- roleName : string
+function Player:hasRole(roleName) -- bool
+    if roleName == nil or type(roleName) ~= "string" or string.len(roleName) == 0 then
+        CNF.Log("error", "Player:hasRole invalid roleName input.")
+        return false
+    end
+    
+    return lib.table.contains(self.private.roles, roleName)
+end
+
 -- newRole : string
 function Player:addRole(newRole) -- bool
-    if newRole == nil or type(newRole) ~= "string" or string.len(newRole) == 0 or Enums.roles[newRole] == nil then
+    if newRole == nil or type(newRole) ~= "string" or string.len(newRole) == 0 then
         CNF.Log("error", "Player:addRole invalid role input.")
         return false
     end
 
-    -- Does role exist ?
-    if self.private.roles[newRole] ~= nil then
-        CNF.Log("error", "Player:addRole role doesn't exist in Enums roles.")
+    -- Does role exists ?
+    if Enums.roles[newRole] == nil then
+        CNF.Log("error", "Player:addRole role doesn't exists.")
+        return false
+    end
+
+    -- Does player already have the role ?
+    if self:hasRole(newRole) then
+        CNF.Log("error", "Player:addRole player already has the role.")
         return false
     end
 
@@ -108,6 +131,42 @@ function Player:addRole(newRole) -- bool
         return true
     else
         CNF.Log("error", "Player:addRole SQL query failed.")
+        return false
+    end
+end
+
+-- roleName : string
+function Player:removeRole(roleName) -- bool
+    if roleName == nil or type(roleName) ~= "string" or string.len(roleName) == 0 then
+        CNF.Log("error", "Player:removeRole invalid roleName input.")
+        return false
+    end
+
+    if self:hasRole(roleName) == false then
+        CNF.Log("error", "Player:removeRole player doesn't have the role.")
+        return false
+    end
+
+    -- Remove role
+    for key, role in pairs(self.private.roles) do
+        if role == roleName then
+            table.remove(self.private.roles, key)
+        end
+    end
+
+    local rolesCopy = lib.table.deepclone(self.private.roles)
+
+    -- Query
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..Enums.sqlTables["players"].." SET roles = @roles WHERE id = @id"), {
+        ["roles"] = json.encode(rolesCopy),
+        ["id"] = self:getId(),
+    })
+    
+    -- Update object
+    if affectedRows > 0 then
+        return true
+    else
+        CNF.Log("error", "Player:removeRole SQL query failed.")
         return false
     end
 end
