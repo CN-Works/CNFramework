@@ -1,0 +1,3 @@
+local CachedPlayers = {}
+
+return CachedPlayers

@@ -1,5 +1,5 @@
 local PlayerManager = require "server.classes.Player.PlayerManager"
-local PlayerCached = require "server.classes.Player.PlayerCached"
+local CachedPlayers = require "server.classes.Player.CachedPlayers"
 
 AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     local src = source
@@ -21,8 +21,6 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     local player = PlayerManager.getPlayerByDiscordId(discordId)
 
     if player then
-        PlayerCached[src] = player
-
         -- Update last connection
         player:updateLastConnection()
     else

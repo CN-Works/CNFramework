@@ -1,3 +1,0 @@
-local PlayerCached = {}
-
-return PlayerCached
