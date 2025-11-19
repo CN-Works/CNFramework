@@ -9,9 +9,10 @@ local Log = function(logType, message)
         type = logType,
         message = message,
         timestamp = os.time,
-        readableTime = tostring(os.date("%d/%m/%Y %Hh%M")..":"..os.date("%S")..":"..(GetGameTimer() % 1000)),
+        readableTime = string.format("%sh%s:%s:%03d", os.date("%H"), os.date("%M"), os.date("%S"), GetGameTimer() % 1000),
     }
 
+    -- output : 22h12:29:794
     local logTime = string.format("%sh%s:%s:%03d", os.date("%H"), os.date("%M"), os.date("%S"), GetGameTimer() % 1000)
 
     print(Enums.logsTypes[logType].titleColor.."["..Enums.logsTypes[logType].title.."] "..logTime.." : "..Enums.logsTypes[logType].textColor..message)

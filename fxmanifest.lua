@@ -6,6 +6,7 @@ game "gta5"
 lua54 "yes"
 
 client_script {
+    "client/core.lua",
     "client/cache.lua",
     "client/**.lua",
 }
@@ -19,7 +20,7 @@ shared_script {
 server_script {
     "@oxmysql/lib/MySQL.lua",
     "config_server.lua",
-    "server/main.lua",
+    "server/core.lua",
     "server/cache.lua",
     "server/tools/**.lua",
     "server/classes/**.lua",

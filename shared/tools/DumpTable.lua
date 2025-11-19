@@ -1,4 +1,4 @@
-function dumpTable(table, nb)
+function DumpTable(table, nb)
     if nb == nil then
         nb = 0
     end
@@ -17,7 +17,7 @@ function dumpTable(table, nb)
             for _ = 1, nb, 1 do
                 s = s .. "    "
             end
-            s = s .. "[" .. k .. "] = " .. dumpTable(v, nb + 1) .. ",\n"
+            s = s .. "[" .. k .. "] = " .. DumpTable(v, nb + 1) .. ",\n"
         end
 
         for _ = 1, nb, 1 do
@@ -30,4 +30,4 @@ function dumpTable(table, nb)
     end
 end
 
-return dumpTable
+return DumpTable
