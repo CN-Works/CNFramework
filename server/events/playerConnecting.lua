@@ -26,8 +26,12 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     else
         print("new player connecting with discord id : " .. discordId)
 
-        -- New Player
-        -- Todo
+            -- New Player
+        local id = MySQL.insert.await("INSERT INTO "..CNF.Enums.sqlTables["players"].." (discord_id, name, last_connection) VALUES (@discordId, @name, @timestamp)", {
+            ["discordId"] = discordId,
+            ["name"] = "Joueur",
+            ["timestamp"] = os.time(),
+        })
     end
 
     -- Authorize connection
