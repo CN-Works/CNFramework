@@ -1,22 +1,22 @@
--- local CachedPlayers = require "server.classes.Player.CachedPlayers"
+lib.addCommand("players", {
+    help = "Shows all connected players.",
+    params = {},
+}, function(source, args, raw)
+    if source ~= 0 then
+        print("Can't show players to a non-admin player.")
+        return
+    end
 
--- lib.addCommand("players", {
---     help = "Affiches les joueurs connectés.",
---     params = {},
--- }, function(source, args, raw)
---     if source ~= 0 then
---         print("Can't show players to a non-admin player.")
---         return
---     end
+    local players = GetActivePlayers()
 
---     local playersList = GetActivePlayers()
+    if #players == 0 then
+        print("There's no player connected at this time.")
+        return
+    end
 
---     if #playersList == 0 then
---         print("No players connected at this time.")
---         return
---     end
+    for key, serverId in pairs(players) do
+        local currentPlayer = CNF.repositories["Player"]:getPlayerByServerId(serverId)
 
---     for key, serverId in pairs(playersList) do
---         print(CachedPlayers[serverId]:getName().." - id : "..CachedPlayers[serverId]:getId().." - server id : "..serverId)
---     end
--- end)
+        print(serverId.." - "..currentPlayer:getName())
+    end
+end)

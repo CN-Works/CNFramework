@@ -1,4 +1,5 @@
-local function GetDiscordIdByServerId(serverId)
+-- serverId : int
+local function GetDiscordIdByServerId(serverId) -- string
     local fullDiscordId = GetPlayerIdentifierByType(serverId, 'discord')
 
     if fullDiscordId == nil then
