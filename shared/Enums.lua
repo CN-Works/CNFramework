@@ -43,11 +43,4 @@ local Enums = {
     },
 }
 
-if IsDuplicityVersion() then
-    Enums.sqlTables = {
-        ["players"] = "player",
-        ["bans"] = "ban",
-    }
-end
-
 return Enums

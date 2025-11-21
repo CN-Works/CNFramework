@@ -6,7 +6,7 @@ Citizen.CreateThread(function()
         Wait(0)
     end
     
-    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. Enums.sqlTables["players"]))
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. ConfigServer.sqlTables["players"]))
     
     if response then
         for key, playerData in pairs(response) do
@@ -16,3 +16,5 @@ Citizen.CreateThread(function()
         CNF.Log("critical", "Player Init : MySQL query failed.")
     end
 end)
+
+

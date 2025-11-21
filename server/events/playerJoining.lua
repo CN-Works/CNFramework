@@ -7,7 +7,7 @@ AddEventHandler('playerJoining', function()
     local discordId = GetPlayerIdentifierByType(src, 'discord')
 
     if discordId == nil then
-        DropPlayer(source, "There was an issue while loading your discord account.")
+        DropPlayer(source, "There was an issue with your discord account (not found).")
         return
     end
 
@@ -19,5 +19,10 @@ AddEventHandler('playerJoining', function()
     if player then
         -- Add player to cache
         CachedPlayers[src] = player
+
+        player:updateLastConnection()
+    else
+        CNF.Log("info", "New player joining. ("..discordId.."), player's object not found.")
+        DropPlayer(source, "There was an issue while syncing to your discord account (not cached).")
     end
 end)

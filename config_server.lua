@@ -4,4 +4,7 @@ ConfigServer = {
         discord = true,
         fivemanage = true,
     },
+    sqlTables = {
+        ["players"] = "player",
+    },
 }

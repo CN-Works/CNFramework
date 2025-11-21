@@ -19,21 +19,6 @@
 CREATE DATABASE IF NOT EXISTS `cnframework` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `cnframework`;
 
--- Listage de la structure de table cnframework. ban
-CREATE TABLE IF NOT EXISTS `ban` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `player_id` int(11) NOT NULL,
-  `reason` text NOT NULL DEFAULT 'Aucune raison défini.',
-  `start` int(11) NOT NULL,
-  `end` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `FK_ban_player` (`player_id`),
-  CONSTRAINT `FK_ban_player` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Les données exportées n'étaient pas sélectionnées.
-
 -- Listage de la structure de table cnframework. character
 CREATE TABLE IF NOT EXISTS `character` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -52,14 +37,14 @@ CREATE TABLE IF NOT EXISTS `character` (
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `discord_id` varchar(19) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(50) DEFAULT 'Joueur',
   `data` text NOT NULL DEFAULT '[]',
   `roles` text NOT NULL DEFAULT '["user"]',
-  `last_connection` int(11) DEFAULT NULL,
+  `last_connection` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `discord_id` (`discord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Les données exportées n'étaient pas sélectionnées.
 
