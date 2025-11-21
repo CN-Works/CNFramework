@@ -4,15 +4,13 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     deferrals.defer()
     Citizen.Wait(0)
 
-    local discordId = GetPlayerIdentifierByType(src, 'discord')
+    local discordId = CNF.methods.GetDiscordIdByServerId(src)
     local ip = GetPlayerEndpoint(src)
 
     if discordId == nil then
         deferrals.done("You don't have a discord account.")
         return
     end
-
-    discordId = string.gsub(discordId, "discord:", "")
 
     -- Authentification
     local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId, true)

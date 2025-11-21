@@ -4,57 +4,16 @@ local Repository = lib.class("PlayerRepository")
 function Repository:constructor()
     -- key : int (player id)
     self.private.players = {}
-    -- key : int (server id)
-    self.private.serverPlayers = {}
 end
 
 -- playerObject : Player
 function Repository:addPlayer(playerObject) -- bool
-    if playerObject == nil or playerObject:getId() == nil then
+    if playerObject == nil or playerObject.__name ~= "Player" then
         CNF.Log("error", "PlayerRepository:addPlayer invalid playerObject input.")
         return false
     end
 
     self.private.players[playerObject:getId()] = playerObject
-
-    return true
-end
-
--- playerId : int
--- serverId : int
-function Repository:linkPlayerIdAndServerId(playerId, serverId) -- bool
-    if playerId == nil or type(playerId) ~= "number" or playerId < 1 then
-        CNF.Log("error", "PlayerRepository:linkPlayerIdAndServerId invalid playerId input.")
-        return false
-    end
-
-    if serverId == nil or type(serverId) ~= "number" or serverId < 1 then
-        CNF.Log("error", "PlayerRepository:linkPlayerIdAndServerId invalid serverId input.")
-        return false
-    end
-
-    local player = self.private.players[playerId]
-
-    if player == nil then
-        CNF.Log("error", "PlayerRepository:linkPlayerIdAndServerId player not found.")
-        return false
-    end
-
-    local discordId = GetPlayerIdentifierByType(serverId, 'discord')
-
-    if discordId == nil then
-        CNF.Log("error", "PlayerRepository:linkPlayerIdAndServerId discordId not found for serverId. ("..serverId..")")
-        return false
-    end
-
-    discordId = string.gsub(discordId, "discord:", "")
-
-    if discordId ~= player:getDiscordId() then
-        CNF.Log("error", "PlayerRepository:linkPlayerIdAndServerId discordId doesn't match.")
-        return false
-    end
-
-    self.private.serverPlayers[serverId] = player:getId()
 
     return true
 end
@@ -66,14 +25,7 @@ function Repository:getPlayerByServerId(serverId) -- Player / false
         return false
     end
 
-    local discordId = GetPlayerIdentifierByType(serverId, 'discord')
-
-    if discordId == nil then
-        CNF.Log("error", "PlayerRepository:getPlayerByServerId discordId not found for serverId. ("..serverId..")")
-        return false
-    end
-
-    discordId = string.gsub(discordId, "discord:", "")
+    local discordId = CNF.methods.GetDiscordIdByServerId(serverId)
 
     local player = self:getPlayerByDiscordId(discordId)
 

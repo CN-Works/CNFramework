@@ -8,7 +8,9 @@ CNF = {
     repositories = {
         ["Player"] = require "server.classes.Player.PlayerRepository",
     },
-    -- Cached Players
+    methods = {
+        GetDiscordIdByServerId = require "server.classes.methods.GetDiscordIdByServerId",
+    },
     -- Tools
     Log = require "shared.tools.Logger",
     DumpTable = require "shared.tools.DumpTable",
