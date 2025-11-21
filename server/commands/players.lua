@@ -17,6 +17,6 @@ lib.addCommand("players", {
     for key, serverId in pairs(players) do
         local currentPlayer = CNF.repositories["Player"]:getPlayerByServerId(serverId)
 
-        print(serverId.." - "..currentPlayer:getName())
+        print("["..serverId.."] "..currentPlayer:getName().." - n°"..currentPlayer:getId())
     end
 end)

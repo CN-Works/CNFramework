@@ -12,8 +12,9 @@ AddEventHandler('playerJoining', function()
     local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId)
 
     if player then
-
         player:updateLastConnection()
+
+        print(player:getName().." is connected.")
     else
         CNF.Log("info", "New player joining. ("..discordId..") player's object not found.")
         DropPlayer(source, "There was an issue while syncing to your discord account (not cached).")

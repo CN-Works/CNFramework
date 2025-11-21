@@ -9,7 +9,7 @@ CNF = {
         ["Player"] = require "server.classes.Player.PlayerRepository",
     },
     methods = {
-        GetDiscordIdByServerId = require "server.classes.methods.GetDiscordIdByServerId",
+        GetDiscordIdByServerId = require "server.methods.GetDiscordIdByServerId",
     },
     -- Tools
     Log = require "shared.tools.Logger",
