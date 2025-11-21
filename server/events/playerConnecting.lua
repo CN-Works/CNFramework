@@ -1,7 +1,3 @@
-local PlayerManager = require "server.classes.Player.PlayerManager"
-local PlayerRepository = require "server.classes.Player.PlayerRepository"
-local CachedPlayers = require "server.classes.Player.CachedPlayers"
-
 AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     local src = source
 
@@ -19,7 +15,7 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     discordId = string.gsub(discordId, "discord:", "")
 
     -- Authentification
-    local player = PlayerManager.getPlayerByDiscordId(discordId, true)
+    local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId, true)
 
     if player then
         -- Update last connection
@@ -39,7 +35,7 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
             local newPlayer = CNF.classes["Player"]:new(id, discordId, "Joueur", {"user"}, timestamp)
 
             -- Adds the player to the repository
-            PlayerRepository[id] = newPlayer
+            CNF.repositories["Player"]:addPlayer(newPlayer)
         else
             defferals.done("There was an issue during the creation of your account.")
         end

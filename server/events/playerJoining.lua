@@ -1,6 +1,3 @@
-local PlayerManager = require "server.classes.Player.PlayerManager"
-local CachedPlayers = require "server.classes.Player.CachedPlayers"
-
 AddEventHandler('playerJoining', function()
     local src = source
 
@@ -14,11 +11,11 @@ AddEventHandler('playerJoining', function()
     discordId = string.gsub(discordId, "discord:", "")
 
     -- Authentification
-    local player = PlayerManager.getPlayerByDiscordId(discordId)
+    local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId)
 
     if player then
         -- Add player to cache
-        CachedPlayers[src] = player
+        CNF.repositories["Player"]:linkPlayerIdAndServerId(player:getId(), src)
 
         player:updateLastConnection()
     else
