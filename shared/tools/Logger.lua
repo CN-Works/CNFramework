@@ -1,7 +1,5 @@
-local Enums = require "shared.Enums"
-
 local Log = function(logType, message)
-    if ConfigServer.logs.console == false or logType == nil or Enums.logsTypes[logType] == nil or message == nil or string.len(message) == 0 then
+    if ConfigServer.logs.console == false or logType == nil or CNF.Enums.logsTypes[logType] == nil or message == nil or string.len(message) == 0 then
         return false
     end
 
@@ -15,7 +13,7 @@ local Log = function(logType, message)
     -- output : 22h12:29:794
     local logTime = string.format("%sh%s:%s:%03d", os.date("%H"), os.date("%M"), os.date("%S"), GetGameTimer() % 1000)
 
-    print(Enums.logsTypes[logType].titleColor.."["..Enums.logsTypes[logType].title.."] "..logTime.." : "..Enums.logsTypes[logType].textColor..message)
+    print(CNF.Enums.logsTypes[logType].titleColor.."["..CNF.Enums.logsTypes[logType].title.."] "..logTime.." : "..CNF.Enums.logsTypes[logType].textColor..message)
 
     table.insert(ServerCache.logs, newLog)
 end

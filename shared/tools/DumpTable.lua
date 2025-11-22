@@ -1,4 +1,4 @@
-function DumpTable(table, nb)
+local function DumpTable(table, nb)
     if nb == nil then
         nb = 0
     end

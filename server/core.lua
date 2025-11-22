@@ -10,6 +10,7 @@ CNF = {
     },
     methods = {
         GetDiscordIdByServerId = require "server.methods.GetDiscordIdByServerId",
+        InstanceOf = require "server.methods.InstanceOf",
     },
     -- Tools
     Log = require "shared.tools.Logger",
