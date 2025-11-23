@@ -8,46 +8,46 @@ local Player = lib.class("Player")
 function Player:constructor(id, discordId, name, data, roles, lastConnection)
     -- Id
     if not CNF.methods.ValidateType(id, "number") or id < 1 then
-        return false
+        error("Player:constructor invalid id input.")
     end
     
     self.private.id = id
 
     -- Discord Id
     if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
-        return false
+        error("Player:constructor invalid discordId input.")
     end
 
     self.private.discordId = discordId
 
     -- Name
     if not CNF.methods.ValidateType(name, "string") or string.len(name) == 0 or string.len(name) > 50 then
-        return false
+        error("Player:constructor invalid name input.")
     end
 
     self.private.name = name
 
     -- Data
     if not CNF.methods.ValidateType(data, "table") then
-        return false
+        error("Player:constructor invalid data input.")
     end
 
     self.private.data = data
 
     -- Roles
     if not CNF.methods.ValidateType(roles, "table") then
-        return false
+        error("Player:constructor invalid roles input.")
     end
 
     self.private.roles = roles
 
-    if lib.table.contains(self.private.roles, "user") == false then
+    if not lib.table.contains(self.private.roles, "user") then
         table.insert(self.private.roles, "user")
     end
 
     -- Last connection
     if not CNF.methods.ValidateType(lastConnection, "number") or lastConnection < 1 or lastConnection > os.time() then
-        return false
+        error("Player:constructor invalid lastConnection input.")
     end
 
     self.private.lastConnection = lastConnection
@@ -109,8 +109,7 @@ end
 -- newRole : string
 function Player:addRole(newRole) -- bool
     if not CNF.methods.ValidateType(newRole, "string") or string.len(newRole) == 0 then
-        CNF.methods.Log("error", "Player:addRole invalid role input.")
-        return false
+        error("Player:addRole invalid role input.")
     end
 
     -- Does role exists ?
@@ -147,8 +146,7 @@ end
 -- roleName : string
 function Player:removeRole(roleName) -- bool
     if not CNF.methods.ValidateType(roleName, "string") or string.len(roleName) == 0 then
-        CNF.methods.Log("error", "Player:removeRole invalid roleName input.")
-        return false
+        error("Player:removeRole invalid roleName input.")
     end
 
     if self:hasRole(roleName) == false then

@@ -8,9 +8,8 @@ end
 
 -- playerObject : Player
 function Repository:addPlayer(playerObject) -- bool
-    if playerObject == nil or playerObject.__name ~= "Player" then
-        CNF.methods.Log("error", "PlayerRepository:addPlayer invalid playerObject input.")
-        return false
+    if not CNF.methods.ValidateType(playerObject, CNF.classes["Player"]) then
+        error("PlayerRepository:addPlayer invalid playerObject input.")
     end
 
     self.private.players[playerObject:getId()] = playerObject
@@ -18,11 +17,19 @@ function Repository:addPlayer(playerObject) -- bool
     return true
 end
 
+-- id : int
+function Repository:getPlayerById(id) -- Player / false
+    if not CNF.methods.ValidateType(id, "number") or id < 1 then
+        error("PlayerRepository:getPlayerById invalid id input.")
+    end
+
+    return self.private.players[id]
+end
+
 -- server id : int
 function Repository:getPlayerByServerId(serverId) -- Player / false
-    if serverId == nil or type(serverId) ~= "number" or serverId < 1 then
-        CNF.methods.Log("error", "PlayerRepository:getPlayerByServerId invalid serverId input.")
-        return false
+    if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
+        error("PlayerRepository:getPlayerByServerId invalid serverId input.")
     end
 
     local discordId = CNF.methods.GetDiscordIdByServerId(serverId)
@@ -40,9 +47,8 @@ end
 -- playerId : int
 -- canBeNewPlayer : bool / nil
 function Repository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / false
-    if discordId == nil or type(discordId) ~= "string" or string.len(discordId) == 0 then
-        CNF.methods.Log("error", "PlayerRepository:getPlayerByDiscordId invalid discordId input.")
-        return false
+    if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 then
+        error("PlayerRepository:getPlayerByDiscordId invalid discordId input.")
     end
 
     for playerId, player in pairs(self.private.players) do

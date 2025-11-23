@@ -3,11 +3,11 @@ Citizen.CreateThread(function()
         Wait(0)
     end
     
-    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. CNF.databaseTables["players"]))
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM "..CNF.databaseTables["players"]))
     
     if response then
         for key, playerData in pairs(response) do
-            CNF.repositories["Player"]:addPlayer(CNF.classes["Player"]:new(playerData.id, playerData.discord_id, playerData.name, playerData.data, playerData.roles, playerData.last_connection))
+            CNF.repositories["Player"]:addPlayer(CNF.classes["Player"]:new(playerData.id, playerData.discord_id, playerData.name, json.decode(playerData.data), json.decode(playerData.roles), playerData.last_connection))
         end
     else
         CNF.methods.Log("critical", "Player Init : MySQL query failed.")
