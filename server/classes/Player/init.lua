@@ -3,7 +3,7 @@ Citizen.CreateThread(function()
         Wait(0)
     end
     
-    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. ConfigServer.sqlTables["players"]))
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM ".. CNF.databaseTables["players"]))
     
     if response then
         for key, playerData in pairs(response) do

@@ -24,7 +24,7 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
         local timestamp = os.time()
 
         -- New Player
-        local id = MySQL.insert.await("INSERT INTO "..ConfigServer.sqlTables["players"].." (discord_id, last_connection) VALUES (@discordId, @lastConnection)", {
+        local id = MySQL.insert.await("INSERT INTO "..CNF.databaseTables["players"].." (discord_id, last_connection) VALUES (@discordId, @lastConnection)", {
             ["discordId"] = discordId,
             ["lastConnection"] = timestamp,
         })

@@ -1,5 +1,4 @@
-local Enums = require "shared.Enums"
-local logsTypes = Enums.logsTypes
+local logsTypes = CNF.enums.logsTypes
 
 lib.addCommand("logs", {
     help = "Affiches les logs du serveurs.",

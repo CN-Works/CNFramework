@@ -1,5 +1,3 @@
-local Enums = require "shared.Enums"
-
 -- Class
 local Player = lib.class("Player")
 
@@ -9,35 +7,35 @@ local Player = lib.class("Player")
 -- lastConnection : int
 function Player:constructor(id, discordId, name, data, roles, lastConnection)
     -- Id
-    if id == nil or type(id) ~= "number" or id < 1 then
+    if not CNF.methods.ValidateType(id, "number") or id < 1 then
         return false
     end
     
     self.private.id = id
 
     -- Discord Id
-    if discordId == nil or type(discordId) ~= "string" or string.len(discordId) == 0 or string.len(discordId) > 19 then
+    if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
         return false
     end
 
     self.private.discordId = discordId
 
     -- Name
-    if name == nil or type(name) ~= "string" or string.len(name) == 0 or string.len(name) > 50 then
+    if not CNF.methods.ValidateType(name, "string") or string.len(name) == 0 or string.len(name) > 50 then
         return false
     end
 
     self.private.name = name
 
     -- Data
-    if data == nil or type(data) ~= "table" then
+    if not CNF.methods.ValidateType(data, "table") then
         return false
     end
 
     self.private.data = data
 
     -- Roles
-    if roles == nil or type(roles) ~= "table" then
+    if not CNF.methods.ValidateType(roles, "table") then
         return false
     end
 
@@ -48,7 +46,7 @@ function Player:constructor(id, discordId, name, data, roles, lastConnection)
     end
 
     -- Last connection
-    if lastConnection == nil or type(lastConnection) ~= "number" or lastConnection < 1 or lastConnection > os.time() then
+    if not CNF.methods.ValidateType(lastConnection, "number") or lastConnection < 1 or lastConnection > os.time() then
         return false
     end
 
@@ -73,13 +71,13 @@ end
 
 -- newName : string
 function Player:setName(newName) -- bool
-    if newName == nil or type(newName) ~= "string" or string.len(newName) == 0 or string.len(newName) > 50 then
+    if not CNF.methods.ValidateType(newName, "string") or string.len(newName) == 0 or string.len(newName) > 50 then
         CNF.methods.Log("error", "Player:setName invalid name input.")
         return false
     end
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..ConfigServer.sqlTables["players"].." SET name = @name WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET name = @name WHERE id = @id"), {
         ["name"] = newName,
         ["id"] = self:getId(),
     })
@@ -100,7 +98,7 @@ end
 
 -- roleName : string
 function Player:hasRole(roleName) -- bool
-    if roleName == nil or type(roleName) ~= "string" or string.len(roleName) == 0 then
+    if not CNF.methods.ValidateType(roleName, "string") or string.len(roleName) == 0 then
         CNF.methods.Log("error", "Player:hasRole invalid roleName input.")
         return false
     end
@@ -110,13 +108,13 @@ end
 
 -- newRole : string
 function Player:addRole(newRole) -- bool
-    if newRole == nil or type(newRole) ~= "string" or string.len(newRole) == 0 then
+    if not CNF.methods.ValidateType(newRole, "string") or string.len(newRole) == 0 then
         CNF.methods.Log("error", "Player:addRole invalid role input.")
         return false
     end
 
     -- Does role exists ?
-    if Enums.roles[newRole] == nil then
+    if CNF.enums.roles[newRole] == nil then
         CNF.methods.Log("error", "Player:addRole role doesn't exists.")
         return false
     end
@@ -131,7 +129,7 @@ function Player:addRole(newRole) -- bool
     table.insert(rolesCopy, newRole)
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..ConfigServer.sqlTables["players"].." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })
@@ -148,7 +146,7 @@ end
 
 -- roleName : string
 function Player:removeRole(roleName) -- bool
-    if roleName == nil or type(roleName) ~= "string" or string.len(roleName) == 0 then
+    if not CNF.methods.ValidateType(roleName, "string") or string.len(roleName) == 0 then
         CNF.methods.Log("error", "Player:removeRole invalid roleName input.")
         return false
     end
@@ -168,7 +166,7 @@ function Player:removeRole(roleName) -- bool
     end
     
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..ConfigServer.sqlTables["players"].." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })
@@ -191,7 +189,7 @@ function Player:updateLastConnection() -- bool
     local timestamp = os.time()
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..ConfigServer.sqlTables["players"].." SET last_connection = @lastConnection WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET last_connection = @lastConnection WHERE id = @id"), {
         ["lastConnection"] = timestamp,
         ["id"] = self:getId(),
     })
