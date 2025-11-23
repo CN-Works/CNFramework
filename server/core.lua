@@ -9,10 +9,10 @@ CNF = {
         ["Player"] = require "server.classes.Player.PlayerRepository",
     },
     methods = {
+        -- Tools
+        Log = require "shared.methods.Logger",
+        DumpTable = require "shared.methods.DumpTable",
+        ValidateType = require "shared.methods.ValidateType",
         GetDiscordIdByServerId = require "server.methods.GetDiscordIdByServerId",
-        InstanceOf = require "server.methods.InstanceOf",
     },
-    -- Tools
-    Log = require "shared.tools.Logger",
-    DumpTable = require "shared.tools.DumpTable",
 }

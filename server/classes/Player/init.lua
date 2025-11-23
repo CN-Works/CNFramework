@@ -10,7 +10,7 @@ Citizen.CreateThread(function()
             CNF.repositories["Player"]:addPlayer(CNF.classes["Player"]:new(playerData.id, playerData.discord_id, playerData.name, playerData.data, playerData.roles, playerData.last_connection))
         end
     else
-        CNF.Log("critical", "Player Init : MySQL query failed.")
+        CNF.methods.Log("critical", "Player Init : MySQL query failed.")
     end
 end)
 

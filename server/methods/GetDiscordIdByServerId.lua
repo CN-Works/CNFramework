@@ -3,7 +3,7 @@ local function GetDiscordIdByServerId(serverId) -- string
     local fullDiscordId = GetPlayerIdentifierByType(serverId, 'discord')
 
     if fullDiscordId == nil then
-        CNF.Log("error", "GetDiscordIdByServerId discordId not found for server id. ("..serverId..")")
+        CNF.methods.Log("error", "GetDiscordIdByServerId discordId not found for server id. ("..serverId..")")
         return false
     end
 

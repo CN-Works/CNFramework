@@ -74,7 +74,7 @@ end
 -- newName : string
 function Player:setName(newName) -- bool
     if newName == nil or type(newName) ~= "string" or string.len(newName) == 0 or string.len(newName) > 50 then
-        CNF.Log("error", "Player:setName invalid name input.")
+        CNF.methods.Log("error", "Player:setName invalid name input.")
         return false
     end
 
@@ -89,7 +89,7 @@ function Player:setName(newName) -- bool
         self.private.name = newName
         return true
     else
-        CNF.Log("error", "Player:setName SQL query failed.")
+        CNF.methods.Log("error", "Player:setName SQL query failed.")
         return false
     end
 end
@@ -101,7 +101,7 @@ end
 -- roleName : string
 function Player:hasRole(roleName) -- bool
     if roleName == nil or type(roleName) ~= "string" or string.len(roleName) == 0 then
-        CNF.Log("error", "Player:hasRole invalid roleName input.")
+        CNF.methods.Log("error", "Player:hasRole invalid roleName input.")
         return false
     end
     
@@ -111,19 +111,19 @@ end
 -- newRole : string
 function Player:addRole(newRole) -- bool
     if newRole == nil or type(newRole) ~= "string" or string.len(newRole) == 0 then
-        CNF.Log("error", "Player:addRole invalid role input.")
+        CNF.methods.Log("error", "Player:addRole invalid role input.")
         return false
     end
 
     -- Does role exists ?
     if Enums.roles[newRole] == nil then
-        CNF.Log("error", "Player:addRole role doesn't exists.")
+        CNF.methods.Log("error", "Player:addRole role doesn't exists.")
         return false
     end
 
     -- Does player already have the role ?
     if self:hasRole(newRole) then
-        CNF.Log("error", "Player:addRole player already has the role.")
+        CNF.methods.Log("error", "Player:addRole player already has the role.")
         return false
     end
 
@@ -141,7 +141,7 @@ function Player:addRole(newRole) -- bool
         table.insert(self.private.roles, newRole)
         return true
     else
-        CNF.Log("error", "Player:addRole SQL query failed.")
+        CNF.methods.Log("error", "Player:addRole SQL query failed.")
         return false
     end
 end
@@ -149,12 +149,12 @@ end
 -- roleName : string
 function Player:removeRole(roleName) -- bool
     if roleName == nil or type(roleName) ~= "string" or string.len(roleName) == 0 then
-        CNF.Log("error", "Player:removeRole invalid roleName input.")
+        CNF.methods.Log("error", "Player:removeRole invalid roleName input.")
         return false
     end
 
     if self:hasRole(roleName) == false then
-        CNF.Log("error", "Player:removeRole player doesn't have the role.")
+        CNF.methods.Log("error", "Player:removeRole player doesn't have the role.")
         return false
     end
     
@@ -178,7 +178,7 @@ function Player:removeRole(roleName) -- bool
         self.private.roles = rolesCopy
         return true
     else
-        CNF.Log("error", "Player:removeRole SQL query failed.")
+        CNF.methods.Log("error", "Player:removeRole SQL query failed.")
         return false
     end
 end
@@ -201,7 +201,7 @@ function Player:updateLastConnection() -- bool
         self.private.lastConnection = timestamp
         return true
     else
-        CNF.Log("error", "Player:updateLastConnection SQL query failed.")
+        CNF.methods.Log("error", "Player:updateLastConnection SQL query failed.")
         return false
     end
 end

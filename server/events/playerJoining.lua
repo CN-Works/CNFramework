@@ -16,7 +16,7 @@ AddEventHandler('playerJoining', function()
 
         print(player:getName().." is connected.")
     else
-        CNF.Log("info", "New player joining. ("..discordId..") player's object not found.")
+        CNF.methods.Log("info", "New player joining. ("..discordId..") player's object not found.")
         DropPlayer(source, "There was an issue while syncing to your discord account (not cached).")
     end
 end)

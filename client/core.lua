@@ -1,5 +1,8 @@
 CNF = {
     Enums = require "shared.Enums",
-    Log = require "shared.tools.Logger",
-    DumpTable = require "shared.tools.DumpTable",
+    methods = {
+        Log = require "shared.methods.Logger",
+        DumpTable = require "shared.methods.DumpTable",
+        ValidateType = require "shared.methods.ValidateType",
+    },
 }

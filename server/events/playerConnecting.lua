@@ -19,7 +19,7 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
         -- Update last connection
         player:updateLastConnection()
     else
-        CNF.Log("info", "New player connecting. ("..discordId..")")
+        CNF.methods.Log("info", "New player connecting. ("..discordId..")")
 
         local timestamp = os.time()
 

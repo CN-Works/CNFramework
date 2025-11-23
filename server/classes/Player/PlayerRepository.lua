@@ -9,7 +9,7 @@ end
 -- playerObject : Player
 function Repository:addPlayer(playerObject) -- bool
     if playerObject == nil or playerObject.__name ~= "Player" then
-        CNF.Log("error", "PlayerRepository:addPlayer invalid playerObject input.")
+        CNF.methods.Log("error", "PlayerRepository:addPlayer invalid playerObject input.")
         return false
     end
 
@@ -21,7 +21,7 @@ end
 -- server id : int
 function Repository:getPlayerByServerId(serverId) -- Player / false
     if serverId == nil or type(serverId) ~= "number" or serverId < 1 then
-        CNF.Log("error", "PlayerRepository:getPlayerByServerId invalid serverId input.")
+        CNF.methods.Log("error", "PlayerRepository:getPlayerByServerId invalid serverId input.")
         return false
     end
 
@@ -30,7 +30,7 @@ function Repository:getPlayerByServerId(serverId) -- Player / false
     local player = self:getPlayerByDiscordId(discordId)
 
     if player == false then
-        CNF.Log("error", "PlayerRepository:getPlayerByServerId player not found.")
+        CNF.methods.Log("error", "PlayerRepository:getPlayerByServerId player not found.")
         return false
     end
 
@@ -41,7 +41,7 @@ end
 -- canBeNewPlayer : bool / nil
 function Repository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / false
     if discordId == nil or type(discordId) ~= "string" or string.len(discordId) == 0 then
-        CNF.Log("error", "PlayerRepository:getPlayerByDiscordId invalid discordId input.")
+        CNF.methods.Log("error", "PlayerRepository:getPlayerByDiscordId invalid discordId input.")
         return false
     end
 
@@ -52,7 +52,7 @@ function Repository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / 
     end
 
     if canBeNewPlayer == nil or canBeNewPlayer == false then
-        CNF.Log("error", "PlayerRepository:getPlayerByDiscordId player not found.")
+        CNF.methods.Log("error", "PlayerRepository:getPlayerByDiscordId player not found.")
     end
     
     return false
