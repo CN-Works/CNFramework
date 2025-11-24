@@ -6,6 +6,9 @@ local Player = lib.class("Player")
 -- roles : table
 -- lastConnection : int
 function Player:constructor(id, discordId, name, data, roles, lastConnection)
+    self.private.repository = CNF.repositories["Player"]
+    self.private.sqlTable = CNF.databaseTables["players"]
+
     -- Id
     if not CNF.methods.ValidateType(id, "number") or id < 1 then
         error("Player:constructor invalid id input.")
@@ -54,6 +57,14 @@ function Player:constructor(id, discordId, name, data, roles, lastConnection)
 end
 
 --------------------
+-- Repository
+--------------------
+
+function Player:getRepository() -- Repository
+    return self.private.repository
+end
+
+--------------------
 -- Methods
 --------------------
 
@@ -77,7 +88,7 @@ function Player:setName(newName) -- bool
     end
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET name = @name WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.sqlTable.." SET name = @name WHERE id = @id"), {
         ["name"] = newName,
         ["id"] = self:getId(),
     })
@@ -128,7 +139,7 @@ function Player:addRole(newRole) -- bool
     table.insert(rolesCopy, newRole)
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.sqlTable.." SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })
@@ -164,7 +175,7 @@ function Player:removeRole(roleName) -- bool
     end
     
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.sqlTable.." SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })
@@ -187,7 +198,7 @@ function Player:updateLastConnection() -- bool
     local timestamp = os.time()
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..CNF.databaseTables["players"].." SET last_connection = @lastConnection WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.sqlTable.." SET last_connection = @lastConnection WHERE id = @id"), {
         ["lastConnection"] = timestamp,
         ["id"] = self:getId(),
     })
