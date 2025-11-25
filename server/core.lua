@@ -1,5 +1,7 @@
 CNF = {
     enums = require "shared.Enums",
+    -- Database tables
+    databaseTables = require "server.databaseTables",
     -- Registered classes
     classes = {
         ["Player"] = require "server.classes.Player.Player",
@@ -15,5 +17,4 @@ CNF = {
         ValidateType = require "shared.methods.ValidateType",
         GetDiscordIdByServerId = require "server.methods.GetDiscordIdByServerId",
     },
-    databaseTables = require "server.databaseTables",
 }

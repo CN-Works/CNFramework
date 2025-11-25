@@ -103,6 +103,85 @@ function Player:setName(newName) -- bool
     end
 end
 
+function Player:getData() -- table
+    return self.private.data
+end
+
+-- Not recommended to use
+-- data : table
+function Player:setData(data) -- bool
+    if not CNF.methods.ValidateType(data, "table") then
+        error("Player:setData invalid data input.")
+    end
+
+    if self.private.data == nil then
+        error("Player:setData player's data can't be set to null.")
+    end
+
+    -- Query
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET data = @data WHERE id = @id"), {
+        ["roles"] = json.encode(data),
+        ["id"] = self:getId(),
+    })
+
+    if affectedRows > 0 then
+        self.private.data = data
+
+        -- trigger event
+        for key, value in pairs(self.private.data) do
+            TriggerClientEvent("cnf:entity:player:dataUpdated", self.getId(), key, value)
+            TriggerEvent("cnf:entity:player:dataUpdated", self.getId(), key, value)
+        end
+
+        return true
+    else
+        CNF.methods.Log("error", "Player:setData SQL query failed.")
+        return false
+    end
+end
+
+-- key : string
+function Player:getDataByKey(key) -- any
+    if not CNF.methods.ValidateType(key, "string") or string.len(key) == 0 then
+        error("Player:getData invalid key input.")
+    end
+
+    return self.private.data[key]
+end
+
+-- ket : string
+-- value : any
+function Player:setDataByKey(key, value) -- bool
+    if not CNF.methods.ValidateType(key, "string") or string.len(key) == 0 then
+        error("Player:setData invalid key input.")
+    end
+
+    if self.private.data == nil then
+        error("Player:setData player's data in null.")
+    end
+
+    if value == nil then
+        return false
+    end
+
+    self.private.data[key] = value
+    return true
+end
+
+-- key : string
+function Player:removeDataByKey(key) -- bool
+    if not CNF.methods.ValidateType(key, "string") or string.len(key) == 0 then
+        error("Player:removeData invalid key input.")
+    end
+
+    if self.private.data == nil then
+        error("Player:removeData player's data in null.")
+    end
+
+    self.private.data[key] = nil
+    return true
+end
+
 function Player:getRoles() -- table
     return self.private.roles
 end
