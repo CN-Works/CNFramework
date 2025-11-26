@@ -1,9 +1,55 @@
 -- Saves all player's objects
 local Repository = lib.class("PlayerRepository")
+local databaseTables = require "server.databaseTables"
 
 function Repository:constructor()
     -- key : int (player id)
     self.private.players = {}
+    self.private.tableName = databaseTables["players"]
+end
+
+function Repository:getPlayers() -- table
+    return self.private.players
+end
+
+-- discordId : string
+function Repository:createPlayer(discordId) -- Player / false
+    if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
+        error("PlayerRepository:createPlayer invalid discordId input.")
+    end
+
+    local default = {
+        name = "Player",
+        data = {
+            ["registrationTimestamp"] = os.time(),
+        },
+        roles = {
+            "user",
+        },
+        lastConnection = os.time(),
+    }
+
+    -- New Player
+    local id = MySQL.insert.await("INSERT INTO "..self.private.tableName.." (discord_id, name, data, roles, last_connection) VALUES (@discordId,@name, @data, @roles, @lastConnection)", {
+        ["discordId"] = discordId,
+        ["name"] = "Player",
+        ["data"] = json.encode(default.data),
+        ["roles"] = json.encode(default.roles),
+        ["lastConnection"] = default.lastConnection,
+    })
+
+    if id then
+        local newPlayer = CNF.classes["Player"]:new(id, discordId, default.name, default.data, default.roles, default.lastConnection)
+
+        -- Adds the player to the repository
+        self:addPlayer(newPlayer)
+
+        CNF.methods.Log("info", "New player registered")
+
+        return newPlayer
+    else
+        return false
+    end
 end
 
 -- playerObject : Player

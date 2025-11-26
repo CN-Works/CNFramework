@@ -1,5 +1,6 @@
 -- Class
 local Player = lib.class("Player")
+local databaseTables = require "server.databaseTables"
 
 -- id : int
 -- name : string
@@ -7,7 +8,7 @@ local Player = lib.class("Player")
 -- lastConnection : int
 function Player:constructor(id, discordId, name, data, roles, lastConnection)
     self.private.repository = CNF.repositories["Player"]
-    self.private.tableName = CNF.databaseTables["players"]
+    self.private.tableName = databaseTables["players"]
 
     -- Id
     if not CNF.methods.ValidateType(id, "number") or id < 1 then
