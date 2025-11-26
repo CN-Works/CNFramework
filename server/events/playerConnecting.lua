@@ -7,7 +7,7 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     local discordId = CNF.methods.GetDiscordIdByServerId(src)
     local ip = GetPlayerEndpoint(src)
 
-    if discordId == nil then
+    if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
         deferrals.done("You don't have a discord account.")
         return
     end
@@ -15,28 +15,19 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     -- Authentification
     local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId, true)
 
-    if player then
+    if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         -- Update last connection
         player:updateLastConnection()
     else
-        CNF.methods.Log("info", "New player connecting. ("..discordId..")")
-
-        local timestamp = os.time()
-
-        -- New Player
-        local id = MySQL.insert.await("INSERT INTO "..CNF.databaseTables["players"].." (discord_id, last_connection) VALUES (@discordId, @lastConnection)", {
-            ["discordId"] = discordId,
-            ["lastConnection"] = timestamp,
-        })
-
-        if id then
-            local newPlayer = CNF.classes["Player"]:new(id, discordId, "Joueur", {"user"}, timestamp)
-
-            -- Adds the player to the repository
-            CNF.repositories["Player"]:addPlayer(newPlayer)
-        else
-            defferals.done("There was an issue during the creation of your account.")
+        local newPlayerObject = CNF.repositories["Player"]:createPlayer(discordId)
+        
+        -- if an issue occured during the creation of the player
+        if newPlayerObject == false or not CNF.methods.ValidateType(newPlayerObject, CNF.classes["Player"]) then
+            deferrals.done("There was an issue during the creation of your account.")
+            return
         end
+
+        CNF.methods.Log("info", "New player registered. ("..newPlayerObject:getId()..")")
     end
 
     -- Authorize connection
