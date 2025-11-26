@@ -3,5 +3,9 @@ AddEventHandler('playerDropped', function(reason)
 
     local player = CNF.repositories["Player"]:getPlayerByServerId(src)
 
-    print(player:getName().." has been disconnected. ("..reason..")")
+    if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
+        print(player:getName().." has been disconnected. ("..reason..")")
+    else
+        print("Player with serverId "..src.."dropped. ("..reason..")")
+    end 
 end)

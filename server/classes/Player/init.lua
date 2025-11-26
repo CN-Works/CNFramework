@@ -5,7 +5,7 @@ Citizen.CreateThread(function()
     
     local response = MySQL.rawExecute.await(tostring("SELECT * FROM "..CNF.databaseTables["players"]))
     
-    if response then
+    if CNF.methods.ValidateType(response, "table") then
         for key, playerData in pairs(response) do
             CNF.repositories["Player"]:addPlayer(CNF.classes["Player"]:new(playerData.id, playerData.discord_id, playerData.name, json.decode(playerData.data), json.decode(playerData.roles), playerData.last_connection))
         end
