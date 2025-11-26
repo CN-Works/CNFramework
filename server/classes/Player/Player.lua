@@ -127,17 +127,27 @@ function Player:setData(key, value) -- bool
         error("Player:setData player's data in null.")
     end
 
-    if value == nil then
+    local playerDataCopy = lib.table.deepclone(self.private.data)
+    playerDataCopy[key] = value
+
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET data = @data WHERE id = @id"), {
+        ["data"] = json.encode(playerDataCopy),
+        ["id"] = self:getId(),
+    })
+    
+    -- Update object
+    if affectedRows > 0 then
+        self.private.data[key] = value
+        self.private.data[key] = value
+    
+        -- Events
+        TriggerEvent("cnf:entity:player:onDataUpdated", self:getId(), key, value)
+        TriggerClientEvent("cnf:entity:player:onDataUpdate", -1, self:getId(), key, value)
+        return true
+    else
+        CNF.methods.Log("error", "Player:setData SQL query failed.")
         return false
     end
-
-    self.private.data[key] = value
-
-    -- Events
-    TriggerEvent("cnf:entity:player:onDataUpdated", self.getId(), key, value)
-    TriggerClientEvent("cnf:entity:player:onDataUpdate" -1, self.getId(), key, value)
-
-    return true
 end
 
 function Player:getRoles() -- table
