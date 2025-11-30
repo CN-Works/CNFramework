@@ -1,5 +1,5 @@
 AddEventHandler("playerSpawned", function()
-    print("CNFramework : player has loaded.")
+    CNF.methods.Log("info", "CNFramework : player has loaded.")
     
     SetCanAttackFriendly(PlayerPedId(), true, false)
     NetworkSetFriendlyFireOption(true)

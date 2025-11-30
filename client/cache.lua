@@ -1,1 +1,3 @@
-ClientCache = {}
+ClientCache = {
+    playerData = nil,
+}
