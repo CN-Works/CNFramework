@@ -1,9 +1,11 @@
+local databaseTables = require "server.databaseTables"
+
 Citizen.CreateThread(function()
     while MySQL.isReady() == false do
         Wait(0)
     end
     
-    local response = MySQL.rawExecute.await(tostring("SELECT * FROM "..CNF.databaseTables["players"]))
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM "..databaseTables["players"]))
     
     if CNF.methods.ValidateType(response, "table") then
         for key, playerData in pairs(response) do
