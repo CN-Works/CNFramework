@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
--- Version du serveur:           10.11.14-MariaDB-log - mariadb.org binary distribution
+-- Version du serveur:           11.6.2-MariaDB-log - mariadb.org binary distribution
 -- SE du serveur:                Win64
 -- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
@@ -24,12 +24,13 @@ CREATE TABLE IF NOT EXISTS `character` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
   `data` text NOT NULL DEFAULT '[]',
+  `metadata` text NOT NULL,
   `skin` text NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FK_character_player` (`player_id`),
   CONSTRAINT `FK_character_player` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Les données exportées n'étaient pas sélectionnées.
 
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `character` (
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `discord_id` varchar(19) NOT NULL,
-  `name` varchar(50) NOT NULL DEFAULT 'New Player',
+  `name` varchar(50) DEFAULT 'Joueur',
   `data` text NOT NULL DEFAULT '[]',
   `roles` text NOT NULL DEFAULT '["user"]',
   `last_connection` int(11) NOT NULL,
