@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `character` (
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `discord_id` varchar(19) NOT NULL,
-  `name` varchar(50) DEFAULT 'Joueur',
+  `name` varchar(50) NOT NULL DEFAULT 'Player',
   `data` text NOT NULL DEFAULT '[]',
   `roles` text NOT NULL DEFAULT '["user"]',
   `last_connection` int(11) NOT NULL,
