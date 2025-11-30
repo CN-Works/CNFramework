@@ -1,5 +1,5 @@
 local function Log(logType, message)
-    if ConfigServer.logs.console == false or logType == nil or CNF.enums.logsTypes[logType] == nil or message == nil or string.len(message) == 0 then
+    if (ConfigServer?.logs.console == false or Config.devMode) or logType == nil or CNF.enums.logsTypes[logType] == nil or message == nil or string.len(message) == 0 then
         return false
     end
 
