@@ -1,4 +1,4 @@
-AddEventHandler('playerDropped', function(reason)
+AddEventHandler("playerDropped", function(reason)
     local src = source
 
     local player = CNF.repositories["Player"]:getPlayerByServerId(src)

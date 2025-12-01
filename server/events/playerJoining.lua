@@ -1,4 +1,4 @@
-AddEventHandler('playerJoining', function()
+AddEventHandler("playerJoining", function()
     local src = source
 
     local discordId = CNF.methods.GetDiscordIdByServerId(src)
@@ -14,7 +14,7 @@ AddEventHandler('playerJoining', function()
     if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         player:updateLastConnection()
 
-        print(player:getName().." is connected.")
+        print(player:getName()..":"..player:getId()" is connected.")
     else
         CNF.methods.Log("info", "New player joining. ("..discordId..") player's object not found.")
         DropPlayer(src, "There was an issue while syncing to your discord account (not found).")
