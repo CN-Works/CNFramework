@@ -14,7 +14,7 @@ AddEventHandler("playerJoining", function()
     if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         player:updateLastConnection()
 
-        print(player:getName()..":"..player:getId()" is connected.")
+        print(player:getName()..":"..player:getId().." is connected.")
     else
         CNF.methods.Log("info", "New player joining. ("..discordId..") player's object not found.")
         DropPlayer(src, "There was an issue while syncing to your discord account (not found).")

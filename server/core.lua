@@ -5,10 +5,12 @@ CNF = {
     -- Registered classes
     classes = {
         ["Player"] = require "server.classes.Player.Player",
+        ["Character"] = require "server.classes.Character.Character",
     },
     -- Repositories
     repositories = {
         ["Player"] = require "server.classes.Player.PlayerRepository",
+        ["Character"] = require "server.classes.Character.CharacterRepository",
     },
     methods = {
         -- Tools

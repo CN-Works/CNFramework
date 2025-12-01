@@ -37,6 +37,8 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     stateBag["playerId"] = data.id
     stateBag["playerName"] = data.name
 
+    print("Player "..data.name.." client data has been initialized.")
+
     -- Character Selection
     -- TODO
 end)
