@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
--- Version du serveur:           11.6.2-MariaDB-log - mariadb.org binary distribution
+-- Version du serveur:           10.11.14-MariaDB-log - mariadb.org binary distribution
 -- SE du serveur:                Win64
 -- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `character` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
   `data` text NOT NULL DEFAULT '[]',
-  `metadata` text NOT NULL,
+  `metadata` text NOT NULL DEFAULT '[]',
   `skin` text NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `discord_id` (`discord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Les données exportées n'étaient pas sélectionnées.
 
