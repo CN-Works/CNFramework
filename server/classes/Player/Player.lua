@@ -136,6 +136,7 @@ function Player:setData(key, value) -- bool
         -- Events
         TriggerEvent("cnf:entity:player:onDataUpdated", self:getId(), key, value)
         TriggerClientEvent("cnf:entity:player:onDataUpdate", -1, self:getId(), key, value)
+        
         return true
     else
         CNF.methods.Log("error", "Player:setData SQL query failed.")
