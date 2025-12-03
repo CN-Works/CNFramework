@@ -117,7 +117,7 @@ function Player:setData(key, value) -- bool
     end
 
     if self.private.data == nil then
-        error("Player:setData player's data in null.")
+        error("Player:setData player's data is null.")
     end
 
     local playerDataCopy = lib.table.deepclone(self.private.data)
@@ -136,7 +136,7 @@ function Player:setData(key, value) -- bool
         -- Events
         TriggerEvent("cnf:entity:player:onDataUpdated", self:getId(), key, value)
         TriggerClientEvent("cnf:entity:player:onDataUpdate", -1, self:getId(), key, value)
-        
+
         return true
     else
         CNF.methods.Log("error", "Player:setData SQL query failed.")

@@ -2,7 +2,7 @@ local Character = lib.class("Character")
 local databaseTables = require "server.databaseTables"
 local playerRepository = require "server.classes.Player.PlayerRepository"
 
-function Character:constructor(id, playerId, data, metaData, skin)
+function Character:constructor(id, playerId, data, metadata, skin)
     self.private.repository = CNF.repositories["Character"]
     self.private.tableName = databaseTables["characters"]
 
@@ -27,12 +27,12 @@ function Character:constructor(id, playerId, data, metaData, skin)
 
     self.private.data = data
 
-    -- metaData
-    if not CNF.methods.ValidateType(metaData, "table") then
-        error("Character:constructor invalid metaData input.")
+    -- metadata
+    if not CNF.methods.ValidateType(metadata, "table") then
+        error("Character:constructor invalid metadata input.")
     end
 
-    self.private.metaData = metaData
+    self.private.metadata = metadata
 
     -- skin
     if not CNF.methods.ValidateType(skin, "table") then
@@ -87,7 +87,7 @@ function Character:setData(key, value) -- bool
     end
 
     if self.private.data == nil then
-        error("Character:setData character's data in null.")
+        error("Character:setData character's data is null.")
     end
 
     local characterDataCopy = lib.table.deepclone(self.private.data)
@@ -114,5 +114,80 @@ function Character:setData(key, value) -- bool
     end
 end
 
+function Character:getAllMetadata() -- table
+    return self.private.metdata
+end
+
+-- key : string
+function Character:getMetadata(key) -- any
+    if not CNF.methods.ValidateType(key, "string") or string.len(key) == 0 then
+        error("Character:getMetadata invalid key input.")
+    end
+
+    return self.private.metadata[key]
+end
+
+-- key : string
+-- value : any
+function Character:setMetadata(key, value) -- bool
+    if not CNF.methods.ValidateType(key, "string") or string.len(key) == 0 then
+        error("Character:setMetadata invalid key input.")
+    end
+
+    if self.private.metadata == nil then
+        error("Character:setMetadata character's metadata is null.")
+    end
+
+    local characterMetadataCopy = lib.table.deepclone(self.private.metadata)
+    characterMetadataCopy[key] = value
+
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET metadata = @metadata WHERE id = @id"), {
+        ["metadata"] = json.encode(characterMetadataCopy),
+        ["id"] = self:getId(),
+    })
+    
+    -- Update object
+    if affectedRows > 0 then
+        self.private.metadata[key] = value
+        self.private.metadata[key] = value
+
+        -- Events
+        TriggerEvent("cnf:entity:character:onMetadataUpdated", self:getId(), key, value)
+        TriggerClientEvent("cnf:entity:character:onMetadataUpdate", -1, self:getId(), key, value)
+
+        return true
+    else
+        CNF.methods.Log("error", "Character:setMetadata SQL query failed.")
+        return false
+    end
+end
+
+function Character:getSkin() -- table
+    return self.private.skin
+end
+
+function Character:setSkin(skin) -- bool
+    if not CNF.methods.ValidateType(skin, "table") then
+        error("Character:setSkin invalid skin input.")
+    end
+
+    if self.private.skin == nil then
+        error("Character:setSkin character's skin is null.")
+    end
+
+    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET skin = @skin WHERE id = @id"), {
+        ["skin"] = json.encode(skin),
+        ["id"] = self:getId(),
+    })
+
+    -- Update object
+    if affectedRows > 0 then
+        self.private.skin = skin
+        return true
+    else
+        CNF.methods.Log("error", "Character:setSkin SQL query failed.")
+        return false
+    end
+end
 
 return Character
