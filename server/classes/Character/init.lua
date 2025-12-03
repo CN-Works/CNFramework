@@ -6,8 +6,6 @@ Citizen.CreateThread(function()
     end
 
     local response = MySQL.rawExecute.await(tostring("SELECT * FROM `"..databaseTables["characters"].."`"))
-
-    print(CNF.methods.DumpTable(response))
     
     if CNF.methods.ValidateType(response, "table") then
         for key, characterData in pairs(response) do
