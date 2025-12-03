@@ -18,5 +18,6 @@ CNF = {
         DumpTable = require "shared.methods.DumpTable",
         ValidateType = require "shared.methods.ValidateType",
         GetDiscordIdByServerId = require "server.methods.GetDiscordIdByServerId",
+        IsDuplicity = require "shared.methods.IsDuplicity",
     },
 }
