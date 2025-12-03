@@ -5,8 +5,7 @@ local databaseTables = require "server.databaseTables"
 -- id : int
 -- name : string
 -- roles : table
--- lastConnection : int
-function Player:constructor(id, discordId, name, data, roles, lastConnection)
+function Player:constructor(id, discordId, name, data, roles)
     self.private.repository = CNF.repositories["Player"]
     self.private.tableName = databaseTables["players"]
 
@@ -48,13 +47,6 @@ function Player:constructor(id, discordId, name, data, roles, lastConnection)
     if not lib.table.contains(self.private.roles, "user") then
         table.insert(self.private.roles, "user")
     end
-
-    -- Last connection
-    if not CNF.methods.ValidateType(lastConnection, "number") or lastConnection < 1 or lastConnection > os.time() then
-        error("Player:constructor invalid lastConnection input.")
-    end
-
-    self.private.lastConnection = lastConnection
 end
 
 --------------------
@@ -234,29 +226,6 @@ function Player:removeRole(roleName) -- bool
         return true
     else
         CNF.methods.Log("error", "Player:removeRole SQL query failed.")
-        return false
-    end
-end
-
-function Player:getLastConnection() -- int
-    return self.private.lastConnection
-end
-
-function Player:updateLastConnection() -- bool
-    local timestamp = os.time()
-
-    -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET last_connection = @lastConnection WHERE id = @id"), {
-        ["lastConnection"] = timestamp,
-        ["id"] = self:getId(),
-    })
-
-    -- Update object
-    if affectedRows > 0 then
-        self.private.lastConnection = timestamp
-        return true
-    else
-        CNF.methods.Log("error", "Player:updateLastConnection SQL query failed.")
         return false
     end
 end

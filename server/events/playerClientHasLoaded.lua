@@ -27,7 +27,6 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
         name = player:getName(),
         data = player:getAllData(),
         roles = player:getRoles(),
-        lastConnection = player:getLastConnection(),
     }
 
     TriggerClientEvent("CNFramework:client:updatePlayerData", src, data)

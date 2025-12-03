@@ -30,20 +30,18 @@ function Repository:createPlayer(discordId, name) -- Player / false
         roles = {
             "user",
         },
-        lastConnection = os.time(),
     }
 
     -- New Player
-    local id = MySQL.insert.await("INSERT INTO "..self.private.tableName.." (discord_id, name, data, roles, last_connection) VALUES (@discordId,@name, @data, @roles, @lastConnection)", {
+    local id = MySQL.insert.await("INSERT INTO "..self.private.tableName.." (discord_id, name, data, roles) VALUES (@discordId,@name, @data, @roles)", {
         ["discordId"] = discordId,
         ["name"] = default.name,
         ["data"] = json.encode(default.data),
         ["roles"] = json.encode(default.roles),
-        ["lastConnection"] = default.lastConnection,
     })
 
     if id then
-        local newPlayer = CNF.classes["Player"]:new(id, discordId, default.name, default.data, default.roles, default.lastConnection)
+        local newPlayer = CNF.classes["Player"]:new(id, discordId, default.name, default.data, default.roles)
 
         -- Adds the player to the repository
         self:addPlayer(newPlayer)

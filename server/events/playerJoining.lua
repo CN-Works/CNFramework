@@ -12,7 +12,6 @@ AddEventHandler("playerJoining", function()
     local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId)
 
     if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
-        player:updateLastConnection()
 
         CNF.methods.Log("info", tostring(player:getName()..":"..player:getId().." is connected."))
 
