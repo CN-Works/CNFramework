@@ -13,13 +13,17 @@ function Repository:getPlayers() -- table
 end
 
 -- discordId : string
-function Repository:createPlayer(discordId) -- Player / false
+function Repository:createPlayer(discordId, name) -- Player / false
     if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
         error("PlayerRepository:createPlayer invalid discordId input.")
     end
 
+    if not CNF.methods.ValidateType(name, "string") or string.len(name) == 0 or string.len(name) > 50 then
+        name = "Player"
+    end
+
     local default = {
-        name = "Player",
+        name = name,
         data = {
             ["registrationTimestamp"] = os.time(),
         },
@@ -32,7 +36,7 @@ function Repository:createPlayer(discordId) -- Player / false
     -- New Player
     local id = MySQL.insert.await("INSERT INTO "..self.private.tableName.." (discord_id, name, data, roles, last_connection) VALUES (@discordId,@name, @data, @roles, @lastConnection)", {
         ["discordId"] = discordId,
-        ["name"] = "Player",
+        ["name"] = default.name,
         ["data"] = json.encode(default.data),
         ["roles"] = json.encode(default.roles),
         ["lastConnection"] = default.lastConnection,

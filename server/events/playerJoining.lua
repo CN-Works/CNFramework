@@ -14,9 +14,18 @@ AddEventHandler("playerJoining", function()
     if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         player:updateLastConnection()
 
-        print(player:getName()..":"..player:getId().." is connected.")
+        CNF.methods.Log("info", tostring(player:getName()..":"..player:getId().." is connected."))
+
+        -- Initialize player's cached data
+        ServerCache.playersCachedData[src] = {
+            playerId = player:getId(), -- int
+            characterId = nil, -- int
+            hasClientLoaded = false, -- bool
+        }
+
+        CNF.methods.Log("info", tostring("Cached data initialized.\n"..CNF.methods.DumpTable({playerId = player:getId(), playerName = player:getName(), serverId = src})))
     else
-        CNF.methods.Log("info", "New player joining. ("..discordId..") player's object not found.")
+        CNF.methods.Log("info", tostring("New player joining. ("..discordId..") player's object not found."))
         DropPlayer(src, "There was an issue while syncing to your discord account (not found).")
     end
 end)

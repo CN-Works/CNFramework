@@ -1,8 +1,9 @@
 RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     local src = source
 
-    if ServerCache.clientLoadedByServerId[src] ~= nil then
-        CNF.methods.Log("error", "CNFramework:server:playerClientHasLoaded client's player has already loaded. (serverId: "..src.." with playerId: "..CNF.repositories["Player"]:getPlayerByServerId(src):getId()..")")
+    -- Check if cached data is init
+    if ServerCache.playersCachedData[src] == nil or ServerCache.playersCachedData[src].isClientLoaded == true then
+        CNF.methods.Log("error", tostring("CNFramework:server:playerClientHasLoaded client's player has already loaded. (serverId: "..src.." with playerId: "..CNF.repositories["Player"]:getPlayerByServerId(src):getId()..")"))
         DropPlayer(src, "Anticheat : You're already loaded on the server.")
         return
     end
@@ -15,9 +16,9 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
         DropPlayer(src, "You're not registered on the server as a player (contact the server owner).")
     end
 
-    CNF.methods.Log("info",player:getName().. "'s client has loaded.\nserverId : "..src.."\nplayerId : "..player:getId())
+    CNF.methods.Log("info",tostring(player:getName().."'s client has loaded. serverId : "..src.." playerId : "..player:getId()))
 
-    ServerCache.clientLoadedByServerId[src] = player:getId()
+    ServerCache.playersCachedData[src].isClientLoaded = true
 
     -- This is a client-side version of the player's global data
     -- It meant to be used client side.
@@ -36,8 +37,6 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
 
     stateBag["playerId"] = data.id
     stateBag["playerName"] = data.name
-
-    print("Player "..data.name.." client data has been initialized.")
 
     -- Character Selection
     -- TODO
