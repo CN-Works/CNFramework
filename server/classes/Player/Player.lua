@@ -81,7 +81,7 @@ function Player:setName(newName) -- bool
     end
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET name = @name WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET name = @name WHERE id = @id"), {
         ["name"] = newName,
         ["id"] = self:getId(),
     })
@@ -123,7 +123,7 @@ function Player:setData(key, value) -- bool
     local playerDataCopy = lib.table.deepclone(self.private.data)
     playerDataCopy[key] = value
 
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET data = @data WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET data = @data WHERE id = @id"), {
         ["data"] = json.encode(playerDataCopy),
         ["id"] = self:getId(),
     })
@@ -180,7 +180,7 @@ function Player:addRole(newRole) -- bool
     table.insert(rolesCopy, newRole)
 
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })
@@ -216,7 +216,7 @@ function Player:removeRole(roleName) -- bool
     end
     
     -- Query
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET roles = @roles WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET roles = @roles WHERE id = @id"), {
         ["roles"] = json.encode(rolesCopy),
         ["id"] = self:getId(),
     })

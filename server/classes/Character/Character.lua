@@ -93,7 +93,7 @@ function Character:setData(key, value) -- bool
     local characterDataCopy = lib.table.deepclone(self.private.data)
     characterDataCopy[key] = value
 
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET data = @data WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET data = @data WHERE id = @id"), {
         ["data"] = json.encode(characterDataCopy),
         ["id"] = self:getId(),
     })
@@ -141,7 +141,7 @@ function Character:setMetadata(key, value) -- bool
     local characterMetadataCopy = lib.table.deepclone(self.private.metadata)
     characterMetadataCopy[key] = value
 
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET metadata = @metadata WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET metadata = @metadata WHERE id = @id"), {
         ["metadata"] = json.encode(characterMetadataCopy),
         ["id"] = self:getId(),
     })
@@ -175,7 +175,7 @@ function Character:setSkin(skin) -- bool
         error("Character:setSkin character's skin is null.")
     end
 
-    local affectedRows = MySQL.update.await(tostring("UPDATE "..self.private.tableName.." SET skin = @skin WHERE id = @id"), {
+    local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET skin = @skin WHERE id = @id"), {
         ["skin"] = json.encode(skin),
         ["id"] = self:getId(),
     })

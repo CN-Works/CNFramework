@@ -33,7 +33,7 @@ function Repository:createPlayer(discordId, name) -- Player / false
     }
 
     -- New Player
-    local id = MySQL.insert.await("INSERT INTO "..self.private.tableName.." (discord_id, name, data, roles) VALUES (@discordId,@name, @data, @roles)", {
+    local id = MySQL.insert.await("INSERT INTO `"..self.private.tableName.."` (discord_id, name, data, roles) VALUES (@discordId,@name, @data, @roles)", {
         ["discordId"] = discordId,
         ["name"] = default.name,
         ["data"] = json.encode(default.data),
@@ -66,7 +66,7 @@ function Repository:addPlayer(playerObject) -- bool
 end
 
 -- id : int
-function Repository:getPlayerById(id) -- Player / false
+function Repository:getPlayerById(id) -- Player / nil
     if not CNF.methods.ValidateType(id, "number") or id < 1 then
         error("PlayerRepository:getPlayerById invalid id input.")
     end
