@@ -4,5 +4,18 @@ Config = {
     mapName = "Los Santos",
     enablePopulation = false,
 
-    devMode = true,
+    -- Environment related
+    env = "dev",
+
+    -- Logs related
+    allowLogs = {
+        ["discord"] = true,
+        ["fivemanage"] = true,
+        --
+        ["info"] = true,
+        ["error"] = true,
+        ["critical"] = true,
+        ["success"] = true,
+        ["orm"] = true,
+    },
 }
