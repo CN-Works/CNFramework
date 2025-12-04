@@ -1,3 +1,5 @@
+local PlayerRepository = require "server.classes.Player.PlayerRepository"
+local PlayerClass = require "server.classes.Player.Player"
 local databaseTables = require "server.databaseTables"
 
 Citizen.CreateThread(function()
@@ -8,9 +10,11 @@ Citizen.CreateThread(function()
     local response = MySQL.rawExecute.await(tostring("SELECT * FROM `"..databaseTables["players"].."`"))
     
     if CNF.methods.ValidateType(response, "table") then
-        for key, playerData in pairs(response) do
-            CNF.repositories["Player"]:addPlayer(CNF.classes["Player"]:new(playerData.id, playerData.discord_id, playerData.name, json.decode(playerData.data), json.decode(playerData.roles)))
+        for key, value in pairs(response) do
+            PlayerRepository:addPlayer(PlayerClass:new(value.id, value.discord_id, value.name, json.decode(value.data), json.decode(value.roles)))
         end
+
+        CNF.methods.Log("orm", tostring(#response.." players loaded."))
     else
         CNF.methods.Log("critical", "Player Init : MySQL query failed.")
     end
