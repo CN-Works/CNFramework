@@ -1,11 +1,7 @@
 ServerCache = {
     logs = {},
-    -- Initialized in /events/playerJoining.lua
-    playersCachedData = {
-        -- [serverId] = {
-        --     playerId = int,
-        --     characterId = int,
-        --     isClientLoaded = bool,
-        -- }
+    -- Player's client side has loaded ?
+    loadedPlayerClients = {
+        -- [serverId] = true / nil by default
     },
 }
