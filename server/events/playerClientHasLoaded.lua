@@ -2,7 +2,7 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     local src = source
 
     -- Check if cached data is init
-    if ServerCache.playersCachedData[src] == nil or ServerCache.playersCachedData[src].isClientLoaded == true then
+    if ServerCache.loadedPlayerClients[src] ~= nil then
         CNF.methods.Log("error", tostring("CNFramework:server:playerClientHasLoaded client's player has already loaded. (serverId: "..src.." with playerId: "..CNF.repositories["Player"]:getPlayerByServerId(src):getId()..")"))
         DropPlayer(src, "Anticheat : You're already loaded on the server.")
         return
@@ -18,7 +18,7 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
 
     CNF.methods.Log("info",tostring(player:getName().."'s client has loaded. serverId : "..src.." playerId : "..player:getId()))
 
-    ServerCache.playersCachedData[src].isClientLoaded = true
+    ServerCache.loadedPlayerClients[src] = true
 
     -- This is a client-side version of the player's global data
     -- It meant to be used client side.
