@@ -25,7 +25,7 @@ function Repository:createPlayer(discordId, name) -- Player / false
     local default = {
         name = name,
         data = {
-            ["registrationTimestamp"] = os.time(),
+            ["registrationTime"] = os.time(),
         },
         roles = {
             "user",
