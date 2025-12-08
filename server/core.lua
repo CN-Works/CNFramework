@@ -6,11 +6,13 @@ CNF = {
     classes = {
         ["Player"] = require "server.classes.Player.Player",
         ["Character"] = require "server.classes.Character.Character",
+        ["NetworkPlayer"] = require "server.classes.NetworkPlayer.NetworkPlayer",
     },
     -- Repositories
     repositories = {
         ["Player"] = require "server.classes.Player.PlayerRepository",
         ["Character"] = require "server.classes.Character.CharacterRepository",
+        ["NetworkPlayer"] = require "server.classes.NetworkPlayer.NetworkPlayerRepository",
     },
     methods = {
         -- Tools
