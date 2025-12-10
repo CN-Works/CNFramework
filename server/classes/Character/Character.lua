@@ -1,6 +1,5 @@
 local Character = lib.class("Character")
 local databaseTables = require "server.databaseTables"
-local playerRepository = require "server.classes.Player.PlayerRepository"
 
 function Character:constructor(id, playerId, data, metadata, skin)
     self.private.repository = CNF.repositories["Character"]
@@ -14,7 +13,7 @@ function Character:constructor(id, playerId, data, metadata, skin)
     self.private.id = id
 
     -- playerId
-    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 or playerRepository:getPlayerById(playerId) == false then
+    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 or CNF.repositories["Player"]:getPlayerById(playerId) == false then
         error("Character:constructor invalid playerId input.")
     end
 
@@ -59,7 +58,7 @@ function Character:getId() -- int
 end
 
 function Character:getPlayer() -- Player
-    return playerRepository:getPlayerById(self.private.playerId)
+    return CNF.repositories["Player"]:getPlayerById(self.private.playerId)
 end
 
 function Character:getPlayerId() -- int

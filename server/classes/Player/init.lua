@@ -1,5 +1,3 @@
-local PlayerRepository = require "server.classes.Player.PlayerRepository"
-local PlayerClass = require "server.classes.Player.Player"
 local databaseTables = require "server.databaseTables"
 
 Citizen.CreateThread(function()
@@ -11,7 +9,7 @@ Citizen.CreateThread(function()
     
     if CNF.methods.ValidateType(response, "table") then
         for key, value in pairs(response) do
-            PlayerRepository:addPlayer(PlayerClass:new(value.id, value.discord_id, value.name, json.decode(value.data), json.decode(value.roles)))
+            CNF.repository["Player"]:addPlayer(CNF.classes["Player"]:new(value.id, value.discord_id, value.name, json.decode(value.data), json.decode(value.roles)))
         end
 
         CNF.methods.Log("orm", tostring(#response.." players loaded."))

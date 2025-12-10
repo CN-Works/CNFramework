@@ -1,5 +1,4 @@
 local NetworkPlayer = lib.class("NetworkPlayer")
-local PlayerRepository = require "server.classes.Player.PlayerRepository"
 
 function NetworkPlayer:constructor(serverId, playerId)
     self.private.clientLoaded = false
@@ -16,7 +15,7 @@ function NetworkPlayer:constructor(serverId, playerId)
         error("NetworkPlayer:constructor invalid playerId input.")
     end
 
-    if PlayerRepository:getPlayerById(playerId) == nil then
+    if CNF.repository["Player"]:getPlayerById(playerId) == nil then
         error("NetworkPlayer:constructor player not found.")
     end
 
@@ -32,7 +31,7 @@ function NetworkPlayer:getPlayerId() -- int
 end
 
 function NetworkPlayer:getPlayer() -- Player
-    return PlayerRepository:getPlayerById(self.private.playerId)
+    return CNF.repository["Player"]:getPlayerById(self.private.playerId)
 end
 
 function NetworkPlayer:isClientLoaded() -- bool
