@@ -16,11 +16,7 @@ function NetworkPlayer:constructor(serverId, playerId)
         error("NetworkPlayer:constructor invalid playerId input.")
     end
 
-<<<<<<< Updated upstream
-    if CNF.repository["Player"]:getPlayerById(playerId) == nil then
-=======
     if CNF.repositories["Player"]:getPlayerById(playerId) == nil then
->>>>>>> Stashed changes
         error("NetworkPlayer:constructor player not found.")
     end
 
@@ -36,11 +32,7 @@ function NetworkPlayer:getPlayerId() -- int
 end
 
 function NetworkPlayer:getPlayer() -- Player
-<<<<<<< Updated upstream
-    return CNF.repository["Player"]:getPlayerById(self.private.playerId)
-=======
     return CNF.repositories["Player"]:getPlayerById(self.private.playerId)
->>>>>>> Stashed changes
 end
 
 function NetworkPlayer:isClientLoaded() -- bool

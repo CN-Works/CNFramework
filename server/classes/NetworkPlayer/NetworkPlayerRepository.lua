@@ -1,6 +1,3 @@
--- Imports
-local NetworkPlayer = require "server.classes.NetworkPlayer.NetworkPlayer"
-
 -- Repository Class
 local Repository = lib.class("NetworkPlayerRepository")
 

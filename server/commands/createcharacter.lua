@@ -7,6 +7,4 @@ RegisterCommand("createcharacter", function(source, args, rawCommand)
         CNF.methods.Log("error", "Console can't create a character because it needs a player id.")
         return
     end
-
-    
 end)

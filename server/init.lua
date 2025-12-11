@@ -1,3 +1,9 @@
+if CNF.isReady then
+    return
+end
+
+--error("debug me")
+
 local startTime = os.nanotime()
 
 -- Server Population

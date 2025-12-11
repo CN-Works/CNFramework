@@ -1,13 +1,10 @@
--- Imports
-local databaseTables = require "server.databaseTables"
-
 -- Repository Class
 local Repository = lib.class("CharacterRepository")
 
 function Repository:constructor()
     -- key : int (player id)
     self.private.characters = {}
-    self.private.tableName = databaseTables["characters"]
+    self.private.tableName = CNF.databaseTables["characters"]
     self.private.init = false
 end
 

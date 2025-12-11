@@ -18,7 +18,7 @@ Config = {
         ["critical"] = true,
         ["success"] = true,
         ["orm"] = true,
-        ["debug"] = false,
+        ["debug"] = true,
         -- Other platforms
         ["discord"] = true,
         ["fivemanage"] = true,
