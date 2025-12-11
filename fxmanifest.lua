@@ -23,7 +23,6 @@ server_script {
     "server/core.lua",
     "server/cache.lua",
     "server/init.lua",
-    "server/test.lua",
     -- Others
     "server/events/**.lua",
     "server/commands/**.lua",
