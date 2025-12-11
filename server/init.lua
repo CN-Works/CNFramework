@@ -41,4 +41,11 @@ end
 ------
 CNF.isReady = true
 
-print("CNFramework has loaded within "..string.format("%.3f", (os.nanotime() - startTime) / 1e9).."s.\nWelcome !")
+print([[
+   _____ _   _ ______                                           _    
+  / ____| \ | |  ____|                                         | |   
+ | |    |  \| | |__ _ __ __ _ _ __ ___   _____      _____  _ __| | __
+ | |    | . ` |  __| '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
+ | |____| |\  | |  | | | (_| | | | | | |  __/\ V  V / (_) | |  |   < 
+  \_____|_| \_|_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\                                                     
+]].."Everything has loaded within "..string.format("%.3f", (os.nanotime() - startTime) / 1e9).."s.\nWelcome !")

@@ -17,7 +17,7 @@ Config = {
         ["error"] = true,
         ["critical"] = true,
         ["success"] = true,
-        ["orm"] = true,
+        ["orm"] = false,
         ["debug"] = true,
         -- Other platforms
         ["discord"] = true,
