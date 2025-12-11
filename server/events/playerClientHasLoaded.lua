@@ -19,7 +19,7 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
 
     networkPlayer = CNF.repositories["NetworkPlayer"]:createNetworkPlayer(src, player:getId())
 
-    CNF.methods.Log("info",tostring(player:getName().."'s client has loaded. serverId : "..src.." playerId : "..player:getId()))
+    CNF.methods.Log("debug",tostring(player:getName().."'s client has loaded. serverId : "..src.." playerId : "..player:getId()))
 
     networkPlayer:clientHasLoaded()
 

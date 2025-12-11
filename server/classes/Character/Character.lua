@@ -1,5 +1,11 @@
-local Character = lib.class("Character")
+-- Imports
 local databaseTables = require "server.databaseTables"
+<<<<<<< Updated upstream
+=======
+
+-- Class
+local Character = lib.class("Character")
+>>>>>>> Stashed changes
 
 function Character:constructor(id, playerId, data, metadata, skin)
     self.private.repository = CNF.repositories["Character"]
