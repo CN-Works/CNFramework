@@ -1,10 +1,14 @@
-local Repository = lib.class("NetworkPlayerRepository")
+-- Imports
 local NetworkPlayer = require "server.classes.NetworkPlayer.NetworkPlayer"
+
+-- Repository Class
+local Repository = lib.class("NetworkPlayerRepository")
 
 function Repository:constructor()
     -- key : int (serverId)
     -- value : NetworkPlayer object
     self.private.networkPlayers = {}
+    self.private.init = false
 end
 
 function Repository:getNetworkPlayers() -- table
@@ -22,7 +26,7 @@ function Repository:createNetworkPlayer(serverId, playerId) -- NetworkPlayer / f
         error("NetworkPlayerRepository:createNetworkPlayer invalid playerId input.")
     end
     
-    local networkPlayer = NetworkPlayer:new(serverId, playerId)
+    local networkPlayer = CNF.classes["NetworkPlayer"]:new(serverId, playerId)
 
     -- Adds the player to the repository
     self:addNetworkPlayer(networkPlayer)
@@ -36,9 +40,9 @@ function Repository:addNetworkPlayer(networkPlayer) -- bool
         error("NetworkPlayerRepository:addNetworkPlayer invalid networkPlayer input.")
     end
 
-    local serverId = networkPlayer:getServerId()
+    local serverId = CNF.classes["NetworkPlayer"]:getServerId()
 
-    print("adding network serverId : "..serverId)
+    CNF.methods.Log("debug",tostring("NetworkPlayerRepository:addNetworkPlayer serverId : "..serverId))
 
     self.private.networkPlayers[serverId] = networkPlayer
 
@@ -61,13 +65,15 @@ function Repository:getNetworkPlayerByPlayerId(playerId) -- NetworkPlayer / nil
     end
 
     for serverId, networkPlayer in pairs(self.private.networkPlayers) do
-        if playerId == networkPlayer:getPlayerId() then
+        if playerId == CNF.classes["NetworkPlayer"]:getPlayerId() then
             return networkPlayer
         end
     end
 end
 
--- Instance of class
-local NetworkPlayerRepository = Repository:new()
+function Repository:init() -- bool
+    self.private.init = true
+    return self.private.init
+end
 
-return NetworkPlayerRepository
+return Repository

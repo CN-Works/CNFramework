@@ -1,11 +1,14 @@
--- Saves all player's objects
-local Repository = lib.class("PlayerRepository")
+-- Imports
 local databaseTables = require "server.databaseTables"
+
+-- Repository Class
+local Repository = lib.class("PlayerRepository")
 
 function Repository:constructor()
     -- key : int (player id)
     self.private.players = {}
     self.private.tableName = databaseTables["players"]
+    self.private.init = false
 end
 
 function Repository:getPlayers() -- table
@@ -112,7 +115,27 @@ function Repository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / 
     return false
 end
 
--- Global Instance of PlayerRepository
-local PlayerRepository = Repository:new()
+function Repository:init() -- bool
+    while MySQL.isReady() == false do
+        Wait(0)
+    end
+    
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM `"..self.private.tableName.."`"))
+    
+    if CNF.methods.ValidateType(response, "table") then
+        for key, value in pairs(response) do
+            self:addPlayer(CNF.classes["Player"]:new(value.id, value.discord_id, value.name, json.decode(value.data), json.decode(value.roles)))
+        end
 
-return PlayerRepository
+        CNF.methods.Log("orm", tostring(#response.." players loaded."))
+
+        self.private.init = true
+    else
+        CNF.methods.Log("critical", "Player Init : MySQL query failed.")
+        self.private.init = false
+    end
+
+    return self.private.init
+end
+
+return Repository

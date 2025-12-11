@@ -45,6 +45,11 @@ local Enums = {
             titleColor = "^4",
             textColor = "^7",
         },
+        ["debug"] = {
+            title = "Debug",
+            titleColor = "^7",
+            textColor = "^7",
+        },
     },
 }
 

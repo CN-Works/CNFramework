@@ -1,10 +1,14 @@
-local Repository = lib.class("CharacterRepository")
+-- Imports
 local databaseTables = require "server.databaseTables"
+
+-- Repository Class
+local Repository = lib.class("CharacterRepository")
 
 function Repository:constructor()
     -- key : int (player id)
     self.private.characters = {}
     self.private.tableName = databaseTables["characters"]
+    self.private.init = false
 end
 
 function Repository:getCharacters() -- table
@@ -78,7 +82,28 @@ function Repository:getCharacterById(id) -- Character / nil
     return self.private.characters[id]
 end
 
-local CharacterRepository = Repository:new()
+function Repository:init() -- bool
+    while MySQL.isReady() == false do
+        Wait(0)
+    end
 
-return CharacterRepository
+    local response = MySQL.rawExecute.await(tostring("SELECT * FROM `"..self.private.tableName.."`"))
+    
+    if CNF.methods.ValidateType(response, "table") then
+        for key, value in pairs(response) do
+            self:addCharacter(CNF.classes["Character"]:new(value.id, value.player_id, json.decode(value.data), json.decode(value.metadata), json.decode(value.skin)))
+        end
+
+        CNF.methods.Log("orm", tostring(#response.." characters loaded."))
+
+        self.private.init = true
+    else
+        CNF.methods.Log("critical", "Character Init : MySQL query failed.")
+        self.private.init = false
+    end
+
+    return self.private.init
+end
+
+return Repository
 

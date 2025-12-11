@@ -4,6 +4,11 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     deferrals.defer()
     Citizen.Wait(0)
 
+    if not CNF.isReady then
+        deferrals.done("The server is not ready yet, please try again in a few minutes.")
+        return
+    end
+
     local discordId = CNF.methods.GetDiscordIdByServerId(src)
     local ip = GetPlayerEndpoint(src)
 

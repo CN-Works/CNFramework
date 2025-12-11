@@ -1,21 +1,26 @@
 Config = {
     serverName = "Los Santos",
     serverDescription = "A roleplay server made by CN-Works",
-    mapName = "Los Santos",
-    enablePopulation = false,
 
     -- Environment related
     env = "dev",
 
+    gameMode = {
+        mapName = "Los Santos",
+        pvp = true,
+    },
+
     -- Logs related
     allowLogs = {
-        ["discord"] = true,
-        ["fivemanage"] = true,
-        --
+        -- Console
         ["info"] = true,
         ["error"] = true,
         ["critical"] = true,
         ["success"] = true,
         ["orm"] = true,
+        ["debug"] = false,
+        -- Other platforms
+        ["discord"] = true,
+        ["fivemanage"] = true,
     },
 }
