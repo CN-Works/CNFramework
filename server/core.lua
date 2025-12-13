@@ -9,8 +9,10 @@ CNF = {
     classes = {
         ["Player"] = require "server.classes.Player.Player",
         ["PlayerRepository"] = require "server.classes.Player.PlayerRepository",
+        --
         ["Character"] = require "server.classes.Character.Character",
         ["CharacterRepository"] = require "server.classes.Character.CharacterRepository",
+        --
         ["NetworkPlayer"] = require "server.classes.NetworkPlayer.NetworkPlayer",
         ["NetworkPlayerRepository"] = require "server.classes.NetworkPlayer.NetworkPlayerRepository",
     },

@@ -1,19 +1,19 @@
 -- Repository Class
-local Repository = lib.class("PlayerRepository")
+local PlayerRepository = lib.class("PlayerRepository")
 
-function Repository:constructor()
+function PlayerRepository:constructor()
     -- key : int (player id)
     self.private.players = {}
     self.private.tableName = CNF.databaseTables["players"]
     self.private.init = false
 end
 
-function Repository:getPlayers() -- table
+function PlayerRepository:getPlayers() -- table
     return self.private.players
 end
 
 -- discordId : string
-function Repository:createPlayer(discordId, name) -- Player / false
+function PlayerRepository:createPlayer(discordId, name) -- Player / false
     if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
         error("PlayerRepository:createPlayer invalid discordId input.")
     end
@@ -55,7 +55,7 @@ function Repository:createPlayer(discordId, name) -- Player / false
 end
 
 -- playerObject : Player
-function Repository:addPlayer(playerObject) -- bool
+function PlayerRepository:addPlayer(playerObject) -- bool
     if not CNF.methods.ValidateType(playerObject, CNF.classes["Player"]) then
         error("PlayerRepository:addPlayer invalid playerObject input.")
     end
@@ -66,7 +66,7 @@ function Repository:addPlayer(playerObject) -- bool
 end
 
 -- id : int
-function Repository:getPlayerById(id) -- Player / nil
+function PlayerRepository:getPlayerById(id) -- Player / nil
     if not CNF.methods.ValidateType(id, "number") or id < 1 then
         error("PlayerRepository:getPlayerById invalid id input.")
     end
@@ -75,7 +75,7 @@ function Repository:getPlayerById(id) -- Player / nil
 end
 
 -- server id : int
-function Repository:getPlayerByServerId(serverId) -- Player / false
+function PlayerRepository:getPlayerByServerId(serverId) -- Player / false
     if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
         error("PlayerRepository:getPlayerByServerId invalid serverId input.")
     end
@@ -94,7 +94,7 @@ end
 
 -- playerId : int
 -- canBeNewPlayer : bool / nil
-function Repository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / false
+function PlayerRepository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / false
     if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 then
         error("PlayerRepository:getPlayerByDiscordId invalid discordId input.")
     end
@@ -112,7 +112,7 @@ function Repository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / 
     return false
 end
 
-function Repository:init() -- bool
+function PlayerRepository:init() -- bool
     while MySQL.isReady() == false do
         Wait(0)
     end
@@ -135,4 +135,4 @@ function Repository:init() -- bool
     return self.private.init
 end
 
-return Repository
+return PlayerRepository

@@ -1,18 +1,18 @@
 -- Repository Class
-local Repository = lib.class("CharacterRepository")
+local CharacterRepository = lib.class("CharacterRepository")
 
-function Repository:constructor()
+function CharacterRepository:constructor()
     -- key : int (player id)
     self.private.characters = {}
     self.private.tableName = CNF.databaseTables["characters"]
     self.private.init = false
 end
 
-function Repository:getCharacters() -- table
+function CharacterRepository:getCharacters() -- table
     return self.private.characters
 end
 
-function Repository:createCharacter(playerId, firstName, lastName, gender, dob) -- Character / nil
+function CharacterRepository:createCharacter(playerId, firstName, lastName, gender, dob) -- Character / nil
     -- playerId
     if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 then
         error("CharacterRepository:createCharacter invalid playerId input.")
@@ -61,7 +61,7 @@ function Repository:createCharacter(playerId, firstName, lastName, gender, dob) 
 end
 
 -- characterObject : Player
-function Repository:addCharacter(characterObject) -- bool
+function CharacterRepository:addCharacter(characterObject) -- bool
     if not CNF.methods.ValidateType(characterObject, CNF.classes["Character"]) then
         error("CharacterRepository:addCharacter invalid characterObject input.")
     end
@@ -71,7 +71,7 @@ function Repository:addCharacter(characterObject) -- bool
     return true
 end
 
-function Repository:getCharacterById(id) -- Character / nil
+function CharacterRepository:getCharacterById(id) -- Character / nil
     if not CNF.methods.ValidateType(id, "number") or id < 1 then
         error("CharacterRepository:getCharacterById invalid id input.")
     end
@@ -79,7 +79,7 @@ function Repository:getCharacterById(id) -- Character / nil
     return self.private.characters[id]
 end
 
-function Repository:init() -- bool
+function CharacterRepository:init() -- bool
     while MySQL.isReady() == false do
         Wait(0)
     end
@@ -102,5 +102,5 @@ function Repository:init() -- bool
     return self.private.init
 end
 
-return Repository
+return CharacterRepository
 

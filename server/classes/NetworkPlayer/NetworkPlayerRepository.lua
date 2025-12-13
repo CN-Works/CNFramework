@@ -1,19 +1,19 @@
 -- Repository Class
-local Repository = lib.class("NetworkPlayerRepository")
+local NetworkPlayerRepository = lib.class("NetworkPlayerRepository")
 
-function Repository:constructor()
+function NetworkPlayerRepository:constructor()
     -- key : int (serverId)
     -- value : NetworkPlayer object
     self.private.networkPlayers = {}
     self.private.init = false
 end
 
-function Repository:getNetworkPlayers() -- table
+function NetworkPlayerRepository:getNetworkPlayers() -- table
     return self.private.networkPlayers
 end
 
 -- networkPlayer : NetworkPlayer
-function Repository:addNetworkPlayer(networkPlayer) -- bool
+function NetworkPlayerRepository:addNetworkPlayer(networkPlayer) -- bool
     if not CNF.methods.ValidateType(networkPlayer, CNF.classes["NetworkPlayer"]) then
         error("NetworkPlayerRepository:addNetworkPlayer invalid networkPlayer input.")
     end
@@ -26,7 +26,7 @@ function Repository:addNetworkPlayer(networkPlayer) -- bool
 end
 
 -- serverId : int
-function Repository:getNetworkPlayerByServerId(serverId) -- NetworkPlayer / nil
+function NetworkPlayerRepository:getNetworkPlayerByServerId(serverId) -- NetworkPlayer / nil
     if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
         error("NetworkPlayerRepository:getNetworkPlayerByServerId invalid serverId input.")
     end
@@ -35,7 +35,7 @@ function Repository:getNetworkPlayerByServerId(serverId) -- NetworkPlayer / nil
 end
 
 -- playerId : int
-function Repository:getNetworkPlayerByPlayerId(playerId) -- NetworkPlayer / nil
+function NetworkPlayerRepository:getNetworkPlayerByPlayerId(playerId) -- NetworkPlayer / nil
     if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 then
         error("NetworkPlayerRepository:getNetworkPlayerByPlayerId invalid playerId input.")
     end
@@ -49,7 +49,7 @@ end
 
 -- serverId : int
 -- playerId : int
-function Repository:createNetworkPlayer(serverId, playerId) -- NetworkPlayer / nil
+function NetworkPlayerRepository:createNetworkPlayer(serverId, playerId) -- NetworkPlayer / nil
     if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
         error("NetworkPlayerRepository:createNetworkPlayer invalid serverId input.")
     end
@@ -66,9 +66,9 @@ function Repository:createNetworkPlayer(serverId, playerId) -- NetworkPlayer / n
     return networkPlayer
 end
 
-function Repository:init() -- bool
+function NetworkPlayerRepository:init() -- bool
     self.private.init = true
     return self.private.init
 end
 
-return Repository
+return NetworkPlayerRepository
