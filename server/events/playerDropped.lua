@@ -18,4 +18,6 @@ AddEventHandler("playerDropped", function(reason)
 
     -- Remove player from repository
     CNF.repositories["NetworkPlayer"]:removeNetworkPlayerByServerId(src)
+
+    TriggerEvent("CNFramework:server:playerDropped", src, player:getId(), reason)
 end)
