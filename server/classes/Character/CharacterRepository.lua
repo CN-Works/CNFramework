@@ -12,6 +12,11 @@ function CharacterRepository:getCharacters() -- table
     return self.private.characters
 end
 
+-- playerId : int
+-- firstName : string
+-- lastName : string
+-- gender : "male" / "female"
+-- dob : int
 function CharacterRepository:createCharacter(playerId, firstName, lastName, gender, dob) -- Character / nil
     -- playerId
     if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 then
@@ -21,7 +26,7 @@ function CharacterRepository:createCharacter(playerId, firstName, lastName, gend
     -- player with this id exists ?
     local player = CNF.repositories["Player"]:getPlayerById(playerId)
 
-    if player == nil then
+    if not CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         error("CharacterRepository:createCharacter player with this id doesn't exist.")
     end
 
@@ -37,7 +42,6 @@ function CharacterRepository:createCharacter(playerId, firstName, lastName, gend
         },
         skin = {},
     }
-
 
         -- New Player
     local id = MySQL.insert.await("INSERT INTO `"..self.private.tableName.."` (player_id, data, metadata, skin) VALUES (@playerId, @data, @metadata, @skin)", {
@@ -55,8 +59,6 @@ function CharacterRepository:createCharacter(playerId, firstName, lastName, gend
         self:addCharacter(character)
     
         return character
-    else
-        return false
     end
 end
 

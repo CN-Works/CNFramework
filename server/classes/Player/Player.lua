@@ -115,10 +115,6 @@ function Player:setData(key, value) -- bool
         error("Player:setData invalid key input.")
     end
 
-    if self.private.data == nil then
-        error("Player:setData player's data is null.")
-    end
-
     local playerDataCopy = lib.table.deepclone(self.private.data)
     playerDataCopy[key] = value
 

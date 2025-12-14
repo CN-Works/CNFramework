@@ -13,7 +13,7 @@ function Character:constructor(id, playerId, data, metadata, skin)
     self.private.id = id
 
     -- playerId
-    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 or CNF.repositories["Player"]:getPlayerById(playerId) == false then
+    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 or CNF.repositories["Player"]:getPlayerById(playerId) == nil then
         error("Character:constructor invalid playerId input.")
     end
 
@@ -85,10 +85,6 @@ function Character:setData(key, value) -- bool
         error("Character:setData invalid key input.")
     end
 
-    if self.private.data == nil then
-        error("Character:setData character's data is null.")
-    end
-
     local characterDataCopy = lib.table.deepclone(self.private.data)
     characterDataCopy[key] = value
 
@@ -99,7 +95,6 @@ function Character:setData(key, value) -- bool
     
     -- Update object
     if affectedRows > 0 then
-        self.private.data[key] = value
         self.private.data[key] = value
     
         -- Events
@@ -133,10 +128,6 @@ function Character:setMetadata(key, value) -- bool
         error("Character:setMetadata invalid key input.")
     end
 
-    if self.private.metadata == nil then
-        error("Character:setMetadata character's metadata is null.")
-    end
-
     local characterMetadataCopy = lib.table.deepclone(self.private.metadata)
     characterMetadataCopy[key] = value
 
@@ -147,7 +138,6 @@ function Character:setMetadata(key, value) -- bool
     
     -- Update object
     if affectedRows > 0 then
-        self.private.metadata[key] = value
         self.private.metadata[key] = value
 
         -- Events
@@ -168,10 +158,6 @@ end
 function Character:setSkin(skin) -- bool
     if not CNF.methods.ValidateType(skin, "table") then
         error("Character:setSkin invalid skin input.")
-    end
-
-    if self.private.skin == nil then
-        error("Character:setSkin character's skin is null.")
     end
 
     local affectedRows = MySQL.update.await(tostring("UPDATE `"..self.private.tableName.."` SET skin = @skin WHERE id = @id"), {

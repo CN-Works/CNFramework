@@ -13,7 +13,7 @@ function NetworkPlayerRepository:getNetworkPlayers() -- table
 end
 
 -- networkPlayer : NetworkPlayer
-function NetworkPlayerRepository:addNetworkPlayer(networkPlayer) -- bool
+function NetworkPlayerRepository:addNetworkPlayer(networkPlayer) -- bool / nil
     if not CNF.methods.ValidateType(networkPlayer, CNF.classes["NetworkPlayer"]) then
         error("NetworkPlayerRepository:addNetworkPlayer invalid networkPlayer input.")
     end
