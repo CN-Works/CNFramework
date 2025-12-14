@@ -130,7 +130,6 @@ function Player:setData(key, value) -- bool
     -- Update object
     if affectedRows > 0 then
         self.private.data[key] = value
-        self.private.data[key] = value
     
         -- Events
         TriggerEvent("cnf:entity:player:onDataUpdated", self:getId(), key, value)

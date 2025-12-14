@@ -13,7 +13,7 @@ function PlayerRepository:getPlayers() -- table
 end
 
 -- discordId : string
-function PlayerRepository:createPlayer(discordId, name) -- Player / false
+function PlayerRepository:createPlayer(discordId, name) -- Player / nil
     if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
         error("PlayerRepository:createPlayer invalid discordId input.")
     end
@@ -49,13 +49,11 @@ function PlayerRepository:createPlayer(discordId, name) -- Player / false
         CNF.methods.Log("info", "New player registered")
 
         return newPlayer
-    else
-        return false
     end
 end
 
 -- playerObject : Player
-function PlayerRepository:addPlayer(playerObject) -- bool
+function PlayerRepository:addPlayer(playerObject) -- bool / nil
     if not CNF.methods.ValidateType(playerObject, CNF.classes["Player"]) then
         error("PlayerRepository:addPlayer invalid playerObject input.")
     end
@@ -75,7 +73,7 @@ function PlayerRepository:getPlayerById(id) -- Player / nil
 end
 
 -- server id : int
-function PlayerRepository:getPlayerByServerId(serverId) -- Player / false
+function PlayerRepository:getPlayerByServerId(serverId) -- Player / nil
     if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
         error("PlayerRepository:getPlayerByServerId invalid serverId input.")
     end
@@ -84,17 +82,16 @@ function PlayerRepository:getPlayerByServerId(serverId) -- Player / false
 
     local player = self:getPlayerByDiscordId(discordId)
 
-    if player == false then
-        CNF.methods.Log("error", "PlayerRepository:getPlayerByServerId player not found.")
-        return false
+    if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
+        return player
     end
-
-    return player
+    
+    CNF.methods.Log("error", "PlayerRepository:getPlayerByServerId player not found.")
 end
 
 -- playerId : int
 -- canBeNewPlayer : bool / nil
-function PlayerRepository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / false
+function PlayerRepository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / nil
     if not CNF.methods.ValidateType(discordId, "string") or string.len(discordId) == 0 then
         error("PlayerRepository:getPlayerByDiscordId invalid discordId input.")
     end
@@ -108,8 +105,6 @@ function PlayerRepository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Pla
     if canBeNewPlayer == nil or canBeNewPlayer == false then
         CNF.methods.Log("error", "PlayerRepository:getPlayerByDiscordId player not found.")
     end
-    
-    return false
 end
 
 function PlayerRepository:init() -- bool

@@ -21,23 +21,19 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
     -- Authentification
     local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId, true)
 
-    if player == false then
+    if not CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         local newPlayerObject = CNF.repositories["Player"]:createPlayer(discordId, name)
         
         -- if an issue occured during the creation of the player
-        if newPlayerObject == false or not CNF.methods.ValidateType(newPlayerObject, CNF.classes["Player"]) then
+        if not CNF.methods.ValidateType(newPlayerObject, CNF.classes["Player"]) then
             deferrals.done("There was an issue during the creation of your account.")
             return
         end
 
         CNF.methods.Log("info", tostring("New player registered. ("..newPlayerObject:getId()..")"))
-    elseif CNF.methods.ValidateType(player, CNF.classes["Player"]) then
-        -- Do something if needed when player is already registered
-    else
-        -- Something went wrong
-        deferrals.done("There was an issue during the creation of your account. (not found & issues when on playerConnection)")
-        return
     end
+
+    -- Do something if needed when player is already registered
 
     -- Authorize connection
     deferrals.done()
