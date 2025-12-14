@@ -32,8 +32,9 @@ AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
 
         CNF.methods.Log("info", tostring("New player registered. ("..newPlayerObject:getId()..")"))
     elseif CNF.methods.ValidateType(player, CNF.classes["Player"]) then
-        -- Do something if needed
+        -- Do something if needed when player is already registered
     else
+        -- Something went wrong
         deferrals.done("There was an issue during the creation of your account. (not found & issues when on playerConnection)")
         return
     end

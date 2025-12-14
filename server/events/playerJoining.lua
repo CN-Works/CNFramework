@@ -11,10 +11,10 @@ AddEventHandler("playerJoining", function()
     -- Authentification
     local player = CNF.repositories["Player"]:getPlayerByDiscordId(discordId)
 
-    if CNF.methods.ValidateType(player, CNF.classes["Player"]) then
-        CNF.methods.Log("info", tostring(player:getName()..":"..player:getId().." is connected."))
-    else
+    if not CNF.methods.ValidateType(player, CNF.classes["Player"]) then
         CNF.methods.Log("info", tostring("New player joining. ("..discordId..") player's object not found."))
         DropPlayer(src, "There was an issue while syncing to your discord account (not found).")
     end
+    
+    CNF.methods.Log("info", tostring(player:getName()..":"..player:getId().." is connected."))
 end)

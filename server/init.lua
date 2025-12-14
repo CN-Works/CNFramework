@@ -2,7 +2,6 @@ if CNF.isReady then
     return
 end
 
-local startTime = os.nanotime()
 
 -- Server Population
 SetRoutingBucketPopulationEnabled(0, Config.enablePopulation)
@@ -11,6 +10,8 @@ SetRoutingBucketPopulationEnabled(0, Config.enablePopulation)
 while MySQL.isReady() == false do
     Wait(0)
 end
+
+local startTime = os.nanotime()
 
 ------
 -- Repositories
