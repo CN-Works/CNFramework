@@ -66,6 +66,22 @@ function NetworkPlayerRepository:createNetworkPlayer(serverId, playerId) -- Netw
     return networkPlayer
 end
 
+-- serverId : int
+function NetworkPlayerRepository:removeNetworkPlayerByServerId(serverId) -- bool
+    if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
+        error("NetworkPlayerRepository:removeNetworkPlayerByServerId invalid serverId input.")
+    end
+
+    if not CNF.methods.ValidateType(self.private.networkPlayers[serverId], CNF.classes["NetworkPlayer"]) then
+        error("NetworkPlayerRepository:removeNetworkPlayerByServerId networkPlayer not found.")
+        return false
+    end
+
+    self.private.networkPlayers[serverId] = nil
+
+    return true
+end
+
 function NetworkPlayerRepository:init() -- bool
     self.private.init = true
     return self.private.init
