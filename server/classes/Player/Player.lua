@@ -128,8 +128,8 @@ function Player:setData(key, value) -- bool
         self.private.data[key] = value
     
         -- Events
-        TriggerEvent("cnf:entity:player:onDataUpdated", self:getId(), key, value)
-        TriggerClientEvent("cnf:entity:player:onDataUpdate", -1, self:getId(), key, value)
+        TriggerEvent("CNFramework:server:entity:player:onDataUpdated", self:getId(), key, value)
+        TriggerClientEvent("CNFramework:client:entity:player:onDataUpdated", -1, self:getId(), key, value)
 
         return true
     else

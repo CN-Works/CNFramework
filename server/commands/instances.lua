@@ -1,4 +1,4 @@
-RegisterCommand("showinstances", function(source, args, rawCommand)
+RegisterCommand("instances", function(source, args, rawCommand)
     local src = source
 
     if src ~= 0 then

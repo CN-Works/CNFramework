@@ -1,9 +1,6 @@
-lib.addCommand("players", {
-    help = "Shows all connected players.",
-    params = {},
-}, function(source, args, raw)
+
+RegisterCommand("players", function(source, args, rawCommand)
     if source ~= 0 then
-        print("Can't show players to a non-admin player.")
         return
     end
 

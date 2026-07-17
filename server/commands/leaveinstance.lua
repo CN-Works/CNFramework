@@ -16,8 +16,10 @@ RegisterCommand("leaveinstance", function(source, args, rawCommand)
 
     if currentBucket ~= 0 then
         SetPlayerRoutingBucket(src, 0)
+        -- Set the player's state to nil
         Player(src).state:set("instance", nil, true)
 
+        -- Triggered a server event when player leaves a bucket
         TriggerEvent("CNFramework:server:instance:leaveBucket", src, currentBucket)
     else
         -- Player's not in a bucket

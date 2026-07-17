@@ -66,6 +66,7 @@ function NetworkPlayerRepository:createNetworkPlayer(serverId, playerId) -- Netw
     return networkPlayer
 end
 
+-- Should be removed from the table when player disconnects.
 -- serverId : int
 function NetworkPlayerRepository:removeNetworkPlayerByServerId(serverId) -- bool
     if not CNF.methods.IsType(serverId, "number") or serverId < 1 then

@@ -72,6 +72,7 @@ function PlayerRepository:getPlayerById(id) -- Player / nil
     return self.private.players[id]
 end
 
+-- Should not be used frequently, use NetworkPlayer instead.
 -- server id : int
 function PlayerRepository:getPlayerByServerId(serverId) -- Player / nil
     if not CNF.methods.IsType(serverId, "number") or serverId < 1 then
