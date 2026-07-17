@@ -1,7 +1,7 @@
 RegisterNetEvent("CNFramework:client:loadPlayerClient", function()
     print("CNFramework : loading player client.")
     
-    local defaultCoords = {x = 1066.0, y = -3188.0, z = 6.0}
+    local defaultCoords = {x = -676.0, y = 485.0, z = 110.0}
 
     exports['spawnmanager']:spawnPlayer({
         model = "ig_sol",

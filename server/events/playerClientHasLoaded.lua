@@ -1,11 +1,11 @@
-RegisterNetEvent("backend:playerClientHasLoaded", function()
+RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     local src = source
     local networkPlayer = CNF.repositories["NetworkPlayer"]:getNetworkPlayerByServerId(src)
 
     -- Check if cached data is init
     if (networkPlayer == nil) == false then
         if networkPlayer:isClientLoaded() then
-            CNF.methods.Log("error", tostring("backend:playerClientHasLoaded client's player has already loaded. (serverId: "..src.." with playerId: "..CNF.repositories["Player"]:getPlayerByServerId(src):getId()..")"))
+            CNF.methods.Log("error", tostring("CNFramework:server:playerClientHasLoaded client's player has already loaded. (serverId: "..src.." with playerId: "..CNF.repositories["Player"]:getPlayerByServerId(src):getId()..")"))
             DropPlayer(src, "Anticheat : You're already loaded on the server.")
             return
         end

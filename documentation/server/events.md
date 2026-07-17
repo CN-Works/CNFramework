@@ -1,8 +1,8 @@
 ```Lua
--- backend:playerClientHasLoaded
+-- CNFramework:server:playerClientHasLoaded
 -- Description : Triggered when the player first spawns on the server. (should not be used)
 -- source : client
-RegisterNetEvent("backend:playerClientHasLoaded", function()
+RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
 end)
 ```
 
