@@ -89,10 +89,10 @@ function PlayerRepository:getPlayerByServerId(serverId) -- Player / nil
     CNF.methods.Log("error", "PlayerRepository:getPlayerByServerId player not found.")
 end
 
--- playerId : int
+-- discordId : string
 -- canBeNewPlayer : bool / nil
 function PlayerRepository:getPlayerByDiscordId(discordId, canBeNewPlayer) -- Player / nil
-    if not CNF.methods.IsType(discordId, "string") or string.len(discordId) == 0 then
+    if not CNF.methods.IsType(discordId, "string") or string.len(discordId) == 0 or string.len(discordId) > 19 then
         error("PlayerRepository:getPlayerByDiscordId invalid discordId input.")
     end
 
