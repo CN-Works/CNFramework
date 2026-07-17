@@ -1,6 +1,4 @@
 Config = {
-    serverName = "Los Santos",
-
     -- Environment related
     env = "dev",
 

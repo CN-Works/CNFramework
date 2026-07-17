@@ -30,7 +30,7 @@ RegisterNetEvent("backend:playerClientHasLoaded", function()
         roles = player:getRoles(),
     }
 
-    TriggerClientEvent("core:updatePlayerData", src, data)
+    TriggerClientEvent("CNFramework:client:updatePlayerData", src, data)
 
     -- Player's statebag
     local stateBag = Player(src).state

@@ -16,19 +16,3 @@ end)
 AddEventHandler("CNFramework:server:playerDropped", function(serverId, playerId, reason)
 end)
 ```
-
-```Lua
--- backend:character:createCharacter
--- Description : Triggered when a player creates a character.
--- source : client
--- characterData : table
--- characterData = {
---     alias = "Nono",
---     firstName = "Norbert",
---     lastName = "Dupont",
---     -- Skin table
---     skin = {},
--- }
-RegisterNetEvent("backend:character:createCharacter", function(characterData)
-end)
-```

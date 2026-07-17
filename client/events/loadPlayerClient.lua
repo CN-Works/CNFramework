@@ -1,4 +1,4 @@
-RegisterNetEvent("core:loadPlayerClient", function()
+RegisterNetEvent("CNFramework:client:loadPlayerClient", function()
     print("CNFramework : loading player client.")
     
     local defaultCoords = {x = 1066.0, y = -3188.0, z = 6.0}

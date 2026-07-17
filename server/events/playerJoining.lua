@@ -19,5 +19,5 @@ AddEventHandler("playerJoining", function()
     
     CNF.methods.Log("info", tostring("["..player:getId().."] "..player:getName().." is connected."))
 
-    TriggerClientEvent("core:loadPlayerClient", src)
+    TriggerClientEvent("CNFramework:client:loadPlayerClient", src)
 end)
