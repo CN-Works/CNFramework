@@ -12,7 +12,7 @@ local Enums = {
         ["superadmin"] = {
             label = "Super administrateur",
         },
-        ["developper"] = {
+        ["developer"] = {
             label = "Développeur",
         },
         ["owner"] = {

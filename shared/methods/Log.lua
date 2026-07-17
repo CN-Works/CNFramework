@@ -1,8 +1,8 @@
-local Enums = require "shared.Enums"
+local Enums = require "shared.enums"
 local logTypes = Enums.logsTypes
 
 local function Log(logType, message)
-    if not CNF.methods.ValidateType(logType, "string") or logTypes[logType] == nil then
+    if not CNF.methods.IsType(logType, "string") or logTypes[logType] == nil then
         error("Log invalid logType input.")
     end
 
