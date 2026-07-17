@@ -1,6 +1,8 @@
-RegisterNetEvent("CNFramework:client:updatePlayerData", function(data)
-    if not CNF.methods.ValidateType(data, "table") then
-        error("CNFramework:client:updatePlayerData invalid value input.")
+RegisterNetEvent("core:updatePlayerData", function(data)
+    print("CNFramework : updating player data.")
+    
+    if not type(data) == "table" then
+        error("core:updatePlayerData invalid value input.")
     end
 
     ClientCache.playerData = data

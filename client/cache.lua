@@ -1,4 +1,3 @@
 ClientCache = {
     playerData = nil,
-    logs = {},
 }

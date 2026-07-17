@@ -5,14 +5,14 @@ function NetworkPlayer:constructor(serverId, playerId)
     self.private.clientLoaded = false
 
     -- Server Id
-    if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
+    if not CNF.methods.IsType(serverId, "number") or serverId < 1 then
         error("NetworkPlayer:constructor invalid serverId input.")
     end
 
     self.private.serverId = serverId
 
     -- Player Id
-    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 then
+    if not CNF.methods.IsType(playerId, "number") or playerId < 1 then
         error("NetworkPlayer:constructor invalid playerId input.")
     end
 

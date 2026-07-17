@@ -1,9 +1,10 @@
 CNF = {
-    enums = require "shared.Enums",
     methods = {
         Log = require "shared.methods.Log",
         DumpTable = require "shared.methods.DumpTable",
-        ValidateType = require "shared.methods.ValidateType",
         IsDuplicity = require "shared.methods.IsDuplicity",
+        IsType = require "shared.methods.IsType",
+        InstanceOf = require "shared.methods.InstanceOf",
+        Round = require "shared.methods.Round",
     },
 }

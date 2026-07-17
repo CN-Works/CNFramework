@@ -1,8 +1,8 @@
 CNF = {
-    -- Is server-side ready ?
+    -- Is backend ready ?
     isReady = false,
     -- Enums
-    enums = require "shared.Enums",
+    enums = require "shared.enums",
     -- Database tables
     databaseTables = require "server.databaseTables",
     -- Registered classes
@@ -10,11 +10,11 @@ CNF = {
         ["Player"] = require "server.classes.Player.Player",
         ["PlayerRepository"] = require "server.classes.Player.PlayerRepository",
         --
-        ["Character"] = require "server.classes.Character.Character",
-        ["CharacterRepository"] = require "server.classes.Character.CharacterRepository",
-        --
         ["NetworkPlayer"] = require "server.classes.NetworkPlayer.NetworkPlayer",
         ["NetworkPlayerRepository"] = require "server.classes.NetworkPlayer.NetworkPlayerRepository",
+        --
+        ["Instance"] = require "server.classes.Instance.Instance",
+        ["InstanceRepository"] = require "server.classes.Instance.InstanceRepository",
     },
     -- Repositories
     repositories = {},
@@ -23,8 +23,10 @@ CNF = {
         -- Shared
         Log = require "shared.methods.Log",
         DumpTable = require "shared.methods.DumpTable",
-        ValidateType = require "shared.methods.ValidateType",
         IsDuplicity = require "shared.methods.IsDuplicity",
+        IsType = require "shared.methods.IsType",
+        InstanceOf = require "shared.methods.InstanceOf",
+        Round = require "shared.methods.Round",
         -- Server
         GetDiscordIdByServerId = require "server.methods.GetDiscordIdByServerId",
     },
