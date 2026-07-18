@@ -13,13 +13,11 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     
     local player = CNF.repositories["Player"]:getPlayerByServerId(src)
 
-    if not CNF.methods.ValidateType(player, CNF.classes["Player"]) then
+    if not CNF.methods.InstanceOf(player, CNF.classes["Player"]) then
         DropPlayer(src, "You're not registered on the server as a player (contact the server owner).")
     end
 
     networkPlayer = CNF.repositories["NetworkPlayer"]:createNetworkPlayer(src, player:getId())
-
-    CNF.methods.Log("debug",tostring(player:getName().."'s client has loaded. serverId : "..src.." playerId : "..player:getId()))
 
     networkPlayer:clientHasLoaded()
 
@@ -40,6 +38,6 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     stateBag["playerId"] = data.id
     stateBag["playerName"] = data.name
 
-    -- Character Selection
-    -- TODO
+    -- Trigger a server event when player as finally loaded and ready to be used
+    TriggerEvent("CNFramework:server:playerHasLoaded", src, player:getId())
 end)

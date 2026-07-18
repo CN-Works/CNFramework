@@ -1,9 +1,6 @@
-lib.addCommand("players", {
-    help = "Shows all connected players.",
-    params = {},
-}, function(source, args, raw)
+
+RegisterCommand("players", function(source, args, rawCommand)
     if source ~= 0 then
-        print("Can't show players to a non-admin player.")
         return
     end
 
@@ -15,7 +12,7 @@ lib.addCommand("players", {
     end
 
     for key, serverId in pairs(players) do
-        local currentPlayer = CNF.repositories["Player"]:getPlayerByServerId(serverId)
+        local currentPlayer = CNF.repositories["NetworkPlayer"]:getNetworkPlayerByServerId(serverId):getPlayer()
 
         print("["..serverId.."] "..currentPlayer:getName().." - n°"..currentPlayer:getId())
     end

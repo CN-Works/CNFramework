@@ -1,6 +1,5 @@
 local databaseTables = {
-    ["players"] = "player",
-    ["characters"] = "character",
+    ["player"] = "player",
 }
 
 return databaseTables

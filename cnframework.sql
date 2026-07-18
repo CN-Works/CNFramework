@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
--- Version du serveur:           10.11.14-MariaDB-log - mariadb.org binary distribution
+-- Version du serveur:           11.6.2-MariaDB-log - mariadb.org binary distribution
 -- SE du serveur:                Win64
 -- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
@@ -19,21 +19,6 @@
 CREATE DATABASE IF NOT EXISTS `cnframework` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `cnframework`;
 
--- Listage de la structure de table cnframework. character
-CREATE TABLE IF NOT EXISTS `character` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `player_id` int(11) NOT NULL,
-  `data` text NOT NULL DEFAULT '[]',
-  `metadata` text NOT NULL DEFAULT '[]',
-  `skin` text NOT NULL DEFAULT '[]',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `FK_character_player` (`player_id`),
-  CONSTRAINT `FK_character_player` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Les données exportées n'étaient pas sélectionnées.
-
 -- Listage de la structure de table cnframework. player
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -44,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `discord_id` (`discord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Les données exportées n'étaient pas sélectionnées.
 

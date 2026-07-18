@@ -14,7 +14,7 @@ end
 
 -- networkPlayer : NetworkPlayer
 function NetworkPlayerRepository:addNetworkPlayer(networkPlayer) -- bool / nil
-    if not CNF.methods.ValidateType(networkPlayer, CNF.classes["NetworkPlayer"]) then
+    if not CNF.methods.InstanceOf(networkPlayer, CNF.classes["NetworkPlayer"]) then
         error("NetworkPlayerRepository:addNetworkPlayer invalid networkPlayer input.")
     end
 
@@ -27,7 +27,7 @@ end
 
 -- serverId : int
 function NetworkPlayerRepository:getNetworkPlayerByServerId(serverId) -- NetworkPlayer / nil
-    if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
+    if not CNF.methods.IsType(serverId, "number") or serverId < 1 then
         error("NetworkPlayerRepository:getNetworkPlayerByServerId invalid serverId input.")
     end
 
@@ -36,7 +36,7 @@ end
 
 -- playerId : int
 function NetworkPlayerRepository:getNetworkPlayerByPlayerId(playerId) -- NetworkPlayer / nil
-    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 then
+    if not CNF.methods.IsType(playerId, "number") or playerId < 1 then
         error("NetworkPlayerRepository:getNetworkPlayerByPlayerId invalid playerId input.")
     end
 
@@ -50,11 +50,11 @@ end
 -- serverId : int
 -- playerId : int
 function NetworkPlayerRepository:createNetworkPlayer(serverId, playerId) -- NetworkPlayer / nil
-    if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
+    if not CNF.methods.IsType(serverId, "number") or serverId < 1 then
         error("NetworkPlayerRepository:createNetworkPlayer invalid serverId input.")
     end
     
-    if not CNF.methods.ValidateType(playerId, "number") or playerId < 1 then
+    if not CNF.methods.IsType(playerId, "number") or playerId < 1 then
         error("NetworkPlayerRepository:createNetworkPlayer invalid playerId input.")
     end
     
@@ -66,13 +66,14 @@ function NetworkPlayerRepository:createNetworkPlayer(serverId, playerId) -- Netw
     return networkPlayer
 end
 
+-- Should be removed from the table when player disconnects.
 -- serverId : int
 function NetworkPlayerRepository:removeNetworkPlayerByServerId(serverId) -- bool
-    if not CNF.methods.ValidateType(serverId, "number") or serverId < 1 then
+    if not CNF.methods.IsType(serverId, "number") or serverId < 1 then
         error("NetworkPlayerRepository:removeNetworkPlayerByServerId invalid serverId input.")
     end
 
-    if not CNF.methods.ValidateType(self.private.networkPlayers[serverId], CNF.classes["NetworkPlayer"]) then
+    if not CNF.methods.InstanceOf(self.private.networkPlayers[serverId], CNF.classes["NetworkPlayer"]) then
         error("NetworkPlayerRepository:removeNetworkPlayerByServerId networkPlayer not found.")
         return false
     end

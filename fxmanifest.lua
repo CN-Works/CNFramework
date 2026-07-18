@@ -3,28 +3,34 @@ name "CNFramework"
 author "CN-Works"
 repository "https://github.com/CN-Works/CNFramework"
 game "gta5"
-lua54 "yes"
+
+dependencies {
+    "ox_lib",
+    "oxmysql",
+}
 
 client_script {
-    "client/core.lua",
     "client/cache.lua",
     "client/**.lua",
 }
 
 shared_script {
     "@ox_lib/init.lua",
-    "config.lua",
     "shared/**.lua",
+    "config.lua"
 }
 
 server_script {
     "@oxmysql/lib/MySQL.lua",
-    "config_server.lua",
+    "server/context_config.lua",
     "server/core.lua",
     "server/cache.lua",
     "server/init.lua",
     -- Others
-    "server/events/**.lua",
+    "server/functions/**.lua",
+    "server/methods/**.lua",
     "server/commands/**.lua",
-    "server/tests/**.lua",
+    "server/events/**.lua",
+    "server/exports/**.lua",
+    "server/threads/**.lua",
 }
