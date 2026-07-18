@@ -16,13 +16,13 @@ client_script {
 
 shared_script {
     "@ox_lib/init.lua",
-    "shared/**.lua"
+    "shared/**.lua",
+    "config.lua"
 }
 
 server_script {
     "@oxmysql/lib/MySQL.lua",
-    "config.lua",
-    "context_config.lua",
+    "server/context_config.lua",
     "server/core.lua",
     "server/cache.lua",
     "server/init.lua",

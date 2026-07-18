@@ -1,5 +1,5 @@
 RegisterNetEvent("CNFramework:client:loadPlayerClient", function()
-    print("CNFramework : loading player client.")
+    CNF.methods.Log("info", "CNFramework : loading player client.")
     
     local defaultCoords = {x = -676.0, y = 485.0, z = 110.0}
 
