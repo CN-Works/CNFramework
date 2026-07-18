@@ -38,6 +38,6 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     stateBag["playerId"] = data.id
     stateBag["playerName"] = data.name
 
-    -- Trigger a server event when player as finally loaded and ready
+    -- Trigger a server event when player as finally loaded and ready to be used
     TriggerEvent("CNFramework:server:playerHasLoaded", src, player:getId())
 end)

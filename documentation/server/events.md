@@ -7,6 +7,16 @@ end)
 ```
 
 ```Lua
+-- CNFramework:server:playerHasLoaded
+-- Description : Triggered when a player has loaded on the server.
+-- source : server
+-- serverId : int
+-- playerId : int
+AddEventHandler("CNFramework:server:playerHasLoaded", function(serverId, playerId)
+end)
+```
+
+```Lua
 -- CNFramework:server:playerDropped
 -- Description : Triggered when a player disconnects from the server.
 -- source : server

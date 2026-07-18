@@ -1,13 +1,15 @@
 local logsTypes = CNF.enums.logsTypes
 
 RegisterCommand("logs", function(source, args, rawCommand)
+    local src <const> = source
+
+    if src ~= 0 then
+        return
+    end
+    
     local logsList = nil
 
-    if CNF.methods.IsDuplicity() then
-        logsList = lib.table.deepclone(ServerCache.logs)
-    else
-        logsList = lib.table.deepclone(ClientCache.logs)
-    end
+    logsList = lib.table.deepclone(ServerCache.logs)
 
     for k, v in pairs(logsList) do
         if k ~= 1 then
