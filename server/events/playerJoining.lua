@@ -1,5 +1,5 @@
 AddEventHandler("playerJoining", function()
-    local src = source
+    local src <const> = source
 
     local discordId = CNF.methods.GetDiscordIdByServerId(src)
 

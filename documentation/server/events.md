@@ -16,13 +16,3 @@ end)
 AddEventHandler("CNFramework:server:playerDropped", function(serverId, playerId, reason)
 end)
 ```
-
-```Lua
--- CNFramework:server:instance:leaveBucket
--- Description : Triggered to make a player leave a bucket
--- source : server
--- serverId : int
--- bucket : int
-AddEventHandler("CNFramework:server:instance:leaveBucket", function(serverId, bucket)
-end)
-```

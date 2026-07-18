@@ -1,5 +1,5 @@
 AddEventHandler('playerConnecting', function(name, setKickReason, deferrals)
-    local src = source
+    local src <const> = source
 
     deferrals.defer()
     Citizen.Wait(0)
