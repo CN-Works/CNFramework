@@ -11,7 +11,7 @@ AddEventHandler("playerDropped", function(reason)
     local player = networkPlayer:getPlayer()
 
     if not CNF.methods.InstanceOf(player, CNF.classes["Player"]) then
-        CNF.methods.Log("info", tostring("Player ("..src.." disconnected. ("..reason..")"))
+        CNF.methods.Log("info", tostring("Player (serverId: "..src..") disconnected. ("..reason..")"))
         return
     end
     
@@ -20,5 +20,5 @@ AddEventHandler("playerDropped", function(reason)
     -- Remove player from repository
     CNF.repositories["NetworkPlayer"]:removeNetworkPlayerByServerId(src)
 
-    TriggerEvent("CNFramework:server:playerDropped", src, player:getId(), reason, coords)
+    TriggerEvent("CNFramework:server:playerDropped", src, player:getId(), reason)
 end)

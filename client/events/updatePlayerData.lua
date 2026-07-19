@@ -1,5 +1,5 @@
 RegisterNetEvent("CNFramework:client:updatePlayerData", function(data)
-    if not type(data) == "table" then
+    if not CNF.methods.IsType(data, "table") then
         error("CNFramework:client:updatePlayerData invalid value input.")
     end
     
