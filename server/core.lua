@@ -12,6 +12,9 @@ CNF = {
         --
         ["NetworkPlayer"] = require "server.classes.NetworkPlayer.NetworkPlayer",
         ["NetworkPlayerRepository"] = require "server.classes.NetworkPlayer.NetworkPlayerRepository",
+        --
+        ["Instance"] = require "server.classes.Instance.Instance",
+        ["InstanceRepository"] = require "server.classes.Instance.InstanceRepository",
     },
     -- Repositories
     repositories = {},

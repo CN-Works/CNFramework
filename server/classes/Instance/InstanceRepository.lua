@@ -8,6 +8,10 @@ function InstanceRepository:constructor()
     self.private.instances = {}
 end
 
+function InstanceRepository:getInstances() -- table
+    return self.private.instances
+end
+
 -- key : string
 -- parameters : table
 function InstanceRepository:createInstance(key, parameters) -- Instance / nil
@@ -75,6 +79,8 @@ function InstanceRepository:joinInstance(networkPlayer, key) -- bool
     -- Join instance
     local instance = self.private.instances[key]
     SetPlayerRoutingBucket(networkPlayer:getServerId(), instance:getBucket())
+    Player(networkPlayer:getServerId()).state["instance"] = instance:getBucket()
+    Player(networkPlayer:getServerId()).state["instanceKey"] = instance:getKey()
 
     -- Add network player to instance
     instance:addNetworkPlayer(networkPlayer)
