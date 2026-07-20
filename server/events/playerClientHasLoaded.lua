@@ -39,6 +39,9 @@ RegisterNetEvent("CNFramework:server:playerClientHasLoaded", function()
     stateBag["playerId"] = data.id
     stateBag["playerName"] = data.name
 
+    -- Instance
+    CNF.repositories["Instance"]:joinInstance(networkPlayer, "default")
+
     -- Trigger a server event when player as finally loaded and ready to be used
     TriggerEvent("CNFramework:server:playerHasLoaded", src, player:getId())
 end)
