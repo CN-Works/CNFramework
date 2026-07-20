@@ -33,4 +33,5 @@ server_script {
     "server/events/**.lua",
     "server/exports/**.lua",
     "server/threads/**.lua",
+    "server/tests/**.lua",
 }
